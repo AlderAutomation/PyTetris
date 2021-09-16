@@ -1,0 +1,23 @@
+NES Tetris
+
+
+as per 
+https://tetris.fandom.com/wiki/Tetris_(NES,_Nintendo)
+
+- 60 frames per second
+- right handed rotation system?
+    -
+- no Hard Drops 
+- soft drop is 1/2G
+- DAS delay is 16 franes and then every 6 frames 
+
+- ARE Entry delays
+    - bottom two rows are followed by 10 frames of delay
+    - each group of 4 add 2 frames delay 
+    libretro
+
+- playfield 10*20 
+- Nintendo Rotation System
+    - pieces highest piece starts on row 20 
+
+- keeps counters of pieces. on left panel 
