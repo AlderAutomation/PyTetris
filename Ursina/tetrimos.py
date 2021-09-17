@@ -1,4 +1,4 @@
-from ursina import *entity, 
+from ursina import *
 
 def tetris_board():
     counter_y = 5
@@ -10,4 +10,6 @@ def tetris_board():
             block = Entity(model='cube', position= (counter_x, counter_y, 0), color=color.black33, scale=(.4, .4, 0))
 
 def square():
-    block1 = Entity(model='')
+    block_x = -2.5
+    block_y = 5
+    block1 = Entity(model='', position=(block_x, block_y, 1), color = color.yellow, scale = (.4, .4, 0))
