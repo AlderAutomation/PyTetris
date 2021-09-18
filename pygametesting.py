@@ -1,5 +1,6 @@
 import pygame
 from pygame.constants import K_SPACE
+import os
 
 pygame.init() 
 
@@ -24,34 +25,76 @@ height = 60
 vel = 20
 is_jump = False
 jump_count = 10
+left = False
+right = False
+walk_count = 0
 
 
+RI1 = pygame.image.load(os.path.join("assets", "RM1.png"))
+RI2 = pygame.image.load(os.path.join("assets", "RM2.png"))
+LI1 = 
+LI2 = 
+
+walk_left = [RI1, RI2]
+walk_right = pygame.transform.flip(pygame.image.load(os.path.join("assets", "RM1.png")), True, False)
+
+bg = pygame.image.load(os.path.join("assets", "forrest.png"))
+char = pygame.image.load(os.path.join("assets", "RMStand.png"))
 run = True
+clock = pygame.time.Clock()
+
+def redraw_window():
+    global walk_count
+
+    win.blit(bg, (0,0))
+    
+    if walk_count + 1 >= 30:
+        walk_count = 0
+
+    if left:
+        win.blit(walk_left[walk_count // 5], (x,y))
+        walk_count += 1
+    elif right:
+        win.blit(walk_right[walk_count // 5], (x,y))
+        walk_count += 1
+    else:
+        win.blit(char, (x,y))
+
+
+    pygame.display.update() 
+
 
 while run:
-    pygame.time.delay(100) #this will delay game 0.1 milliseconds
+    clock.tick(30)
 
-    for event in pygame.event.get(): # event listener
-        if event.type == pygame.QUIT: # close button
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT: 
             run = False
 
     keys = pygame.key.get_pressed()
 
     if keys[pygame.K_a] and x > vel:
         x -= vel
+        left = True
+        right = False
 
-    if keys[pygame.K_d] and x < win_x - vel - width:
+    elif keys[pygame.K_d] and x < win_x - vel - width:
         x += vel
+        right = True
+        left = False
+
+    else:
+        right = False
+        Left = False
+        walk_count = 0
+
 
     if not(is_jump):
-        if keys[pygame.K_w] and y > vel:
-            y -= vel
-
-        if keys[pygame.K_s] and y < win_y - vel - height:
-            y += vel
-
         if keys[pygame.K_SPACE]:
             is_jump = True
+            right = False
+            left = False
+            walk_count = 0
     else:
         if jump_count >= -10:
             y -= (jump_count * abs(jump_count)) * 0.5
@@ -60,9 +103,6 @@ while run:
             jump_count = 10
             is_jump = False
 
-
-    win.fill((0,0,0))
-    pygame.draw.rect(win, (255,0,0), (x, y, width, height)) # Draw a rectangle 
-    pygame.display.update() # updates the screen to show rect
+    redraw_window()
 
 pygame.quit() # if we exit the loop this will execute
