@@ -19,9 +19,13 @@ clock = pygame.time.Clock()
 
 class piece():
     def __init__(self) -> None:
-        self.x = 125
+        self.x = 400
         self.y = 50
         self.vel = 5
+
+
+    def draw_piece(self):
+        pygame.draw.rect(win, (9,9,255), (self.x, self.y, 25, 25) )
 
 
 
@@ -29,6 +33,8 @@ class piece():
 
 def redraw_win():
     win.blit(bg, (0,0))
+    draw_play_area()
+    square.draw_piece()
     pygame.display.update()
 
 
@@ -39,6 +45,8 @@ def draw_play_area():
     play_hieght = 500
     pygame.draw.rect(win, (0,0,0), (play_x, play_y, play_width, play_hieght))
 
+square = piece()
+
 
 while run:
     clock.tick(30)
@@ -48,8 +56,8 @@ while run:
             run = False
 
     redraw_win()
-    draw_play_area()
-    pygame.display.update()
+    # draw_play_area()
+    # pygame.display.update()
 
 
 pygame.quit()
