@@ -1,5 +1,6 @@
 import pygame
 import random
+import tetrimos
 
 from pygame import color
 
@@ -18,17 +19,19 @@ clock = pygame.time.Clock()
 
 
 class piece():
-    def __init__(self) -> None:
-        self.x = 400
-        self.y = 50
-        self.vel = 5
-
+    def __init__(self, shape) -> None:
+        self.vel = 10
+        self.shape = shape
 
     def draw_piece(self):
-        pygame.draw.rect(win, (9,9,255), (self.x, self.y, 25, 25) )
-
-
-
+        if self.shape == "o":
+            tetrimos.ooh(self, win)
+        elif self.shape == "t":
+            tetrimos.tee(self, win)
+        elif self.shape == "i":
+            tetrimos.eye(self, win)
+        else:
+            print("noob")
     
 
 def redraw_win():
@@ -45,11 +48,12 @@ def draw_play_area():
     play_hieght = 500
     pygame.draw.rect(win, (0,0,0), (play_x, play_y, play_width, play_hieght))
 
-square = piece()
+shape = "i"
+square = piece(shape)
 
 
 while run:
-    clock.tick(30)
+    clock.tick(60)
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:

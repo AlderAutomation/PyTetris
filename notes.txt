@@ -21,3 +21,22 @@ https://tetris.fandom.com/wiki/Tetris_(NES,_Nintendo)
     - pieces highest piece starts on row 20 
 
 - keeps counters of pieces. on left panel 
+
+
+
+- nes screen resolution is 256 x 240
+- I think each block is 5x5.
+
+
+
+
+
+
+Soundstrack 
+
+youtube-dl -F url
+youtube-dl -f version url 
+
+
+hi score https://www.youtube.com/watch?v=HGXo7LExG6o&list=PLEOQ0YA_1DWmQANkjJMkH8cVOSpyHrFmU
+music 1 https://www.youtube.com/watch?v=KdPevomELLc&list=PLEOQ0YA_1DWmQANkjJMkH8cVOSpyHrFmU&index=2
