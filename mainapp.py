@@ -20,8 +20,10 @@ clock = pygame.time.Clock()
 
 class piece():
     def __init__(self, shape) -> None:
-        self.vel = 10
+        self.vel = 1
         self.shape = shape
+        self.x = 375
+        self.y = 50
 
     def draw_piece(self):
         if self.shape == "o":
@@ -37,7 +39,7 @@ class piece():
 def redraw_win():
     win.blit(bg, (0,0))
     draw_play_area()
-    square.draw_piece()
+    active_piece.draw_piece()
     pygame.display.update()
 
 
@@ -49,7 +51,7 @@ def draw_play_area():
     pygame.draw.rect(win, (0,0,0), (play_x, play_y, play_width, play_hieght))
 
 shape = "i"
-square = piece(shape)
+active_piece = piece(shape)
 
 
 while run:
@@ -59,9 +61,17 @@ while run:
         if event.type == pygame.QUIT:
             run = False
 
-    redraw_win()
-    # draw_play_area()
-    # pygame.display.update()
+    keys = pygame.key.get_pressed()
 
+    if keys[pygame.K_a]:
+        if not active_piece.x <= 305:
+            active_piece.x -= active_piece.vel
+    elif keys[pygame.K_d]:
+        if not active_piece.x >= 440:
+            active_piece.x += active_piece.vel
+
+    if active_piece.y <= 520:
+        active_piece.y += active_piece.vel
+    redraw_win()
 
 pygame.quit()
