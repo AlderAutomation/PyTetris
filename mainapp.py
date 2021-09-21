@@ -1,14 +1,14 @@
 import pygame
 import random
-import tetrimos
 
 from pygame import color
 
 pygame.init()
 
+
+# Global Vars
 win_x = 800
 win_y = 600
-
 win = pygame.display.set_mode((win_x, win_y))
 bg = pygame.image.load("assets/forrest.png")
 bg = pygame.transform.scale(bg, (win_x, win_y))
@@ -16,25 +16,32 @@ pygame.display.set_caption("PyTetris")
 run = True
 clock = pygame.time.Clock()
 
+# Shapes
+Z = [['.....',
+      '.00..',
+      '..00.'],
+     ['...0.',
+      '..00.',
+      '..0..']]
+
+I = [['.....'], 
+     ['.0000'], 
+     ['.....']]
 
 
 class piece():
-    def __init__(self, shape) -> None:
+    def __init__(self, shape_input) -> None:
         self.vel = 1
-        self.shape = shape
+        self.shape = shape_input
         self.x = 375
         self.y = 50
+        self.rotation = 0
 
     def draw_piece(self):
-        if self.shape == "o":
-            tetrimos.ooh(self, win)
-        elif self.shape == "t":
-            tetrimos.tee(self, win)
-        elif self.shape == "i":
-            tetrimos.eye(self, win)
+        if self.shape == "z":
+            self.shape = Z
         else:
-            print("noob")
-    
+            pass
 
 def redraw_win():
     win.blit(bg, (0,0))
@@ -50,9 +57,14 @@ def draw_play_area():
     play_hieght = 500
     pygame.draw.rect(win, (0,0,0), (play_x, play_y, play_width, play_hieght))
 
-shape = "i"
-active_piece = piece(shape)
+shapes_list = [Z, I]
 
+shape_input = "z"
+active_piece = piece(shape_input)
+
+for i in active_piece.shape:
+    for j in i:
+        print (j)
 
 while run:
     clock.tick(60)
