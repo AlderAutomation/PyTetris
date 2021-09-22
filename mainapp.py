@@ -66,6 +66,15 @@ for i in active_piece.shape:
     for j in i:
         print (j)
 
+
+def music():
+    pygame.mixer.init()
+    pygame.mixer.music.load("assets/music1.mp3")
+    pygame.mixer.music.play()
+    # pygame.error: Unrecognized audio format
+
+
+# music()
 while run:
     clock.tick(60)
 
