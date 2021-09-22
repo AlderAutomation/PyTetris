@@ -34,8 +34,7 @@ https://tetris.fandom.com/wiki/Tetris_(NES,_Nintendo)
 
 Soundstrack 
 
-youtube-dl -F url
-youtube-dl -f version url 
+youtube-dl --extract-audio --audio-format wav https://www.youtube.com/watch?v=KdPevomELLc&list=PLEOQ0YA_1DWmQANkjJMkH8cVOSpyHrFmU&index=2
 
 
 hi score https://www.youtube.com/watch?v=HGXo7LExG6o&list=PLEOQ0YA_1DWmQANkjJMkH8cVOSpyHrFmU
