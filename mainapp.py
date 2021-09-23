@@ -10,7 +10,7 @@ pygame.init()
 win_x = 800
 win_y = 600
 win = pygame.display.set_mode((win_x, win_y))
-bg = pygame.image.load("assets/forrest.png")
+bg = pygame.image.load("assets/pics/forrest.png")
 bg = pygame.transform.scale(bg, (win_x, win_y))
 pygame.display.set_caption("PyTetris")
 run = True
@@ -18,16 +18,26 @@ clock = pygame.time.Clock()
 
 # Shapes
 Z = [['.....',
+      '.....',
       '.00..',
-      '..00.'],
-     ['...0.',
       '..00.',
-      '..0..']]
+      '.....'],
+     ['.....',
+      '..0..',
+      '.00..',
+      '.0...',
+      '.....']]
 
-I = [['.....'], 
-     ['.0000'], 
-     ['.....']]
-
+I = [['..0..',
+      '..0..',
+      '..0..',
+      '..0..',
+      '.....'],
+     ['.....',
+      '0000.',
+      '.....',
+      '.....',
+      '.....']]
 
 class piece():
     def __init__(self, shape_input) -> None:
@@ -37,16 +47,17 @@ class piece():
         self.y = 50
         self.rotation = 0
 
-    def draw_piece(self):
-        if self.shape == "z":
-            self.shape = Z
+        if self.shape == Z:
+            self.block = pygame.image.load("assets/pics/z_l_block.png")
+        elif self.shape == I:
+            self.block = pygame.image.load("assets/pics/t_i_block.png")
         else:
             pass
 
 def redraw_win():
     win.blit(bg, (0,0))
     draw_play_area()
-    active_piece.draw_piece()
+    draw_piece()
     pygame.display.update()
 
 
@@ -57,23 +68,38 @@ def draw_play_area():
     play_hieght = 500
     pygame.draw.rect(win, (0,0,0), (play_x, play_y, play_width, play_hieght))
 
-shapes_list = [Z, I]
 
-shape_input = "z"
-active_piece = piece(shape_input)
+def convert_shape(shape):
+    positions = []
+    formatt = shape.shape[shape.rotation % len(shape.shape)]
 
-for i in active_piece.shape:
-    for j in i:
-        print (j)
+    for i, line in enumerate(formatt):
+        row = list(line)
+        for j, column in enumerate(row):
+            if column == '0':
+                positions.append((shape.x + (j * 25), shape.y + (i * 25)))
+
+    return positions
+
+
+shapes = [Z, I]
+active_piece = piece(random.choice(shapes))
+
+shape_pos = convert_shape(active_piece)
+
+def draw_piece():
+    for i in range(len(shape_pos)):
+        x, y = shape_pos[i]
+        win.blit(active_piece.block, (x,y))
 
 
 def music():
     pygame.mixer.init()
-    pygame.mixer.music.load("assets/music1.wav")
-    pygame.mixer.music.play()
+    pygame.mixer.music.load("assets/audio/music1.wav")
+    pygame.mixer.music.play(-1)
 
 
-music()
+# music()
 while run:
     clock.tick(60)
 

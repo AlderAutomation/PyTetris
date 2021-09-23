@@ -1,5 +1,11 @@
 NES Tetris
 
+I am  doing the blocks as 25x25 as the OG block appear to be 5x5. 
+for easy conversion. and maths nicely to the play area I have made. 
+
+
+
+
 
 as per 
 https://tetris.fandom.com/wiki/Tetris_(NES,_Nintendo)
