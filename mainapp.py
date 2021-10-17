@@ -1,5 +1,6 @@
 import pygame
 import random
+import introscreen
 
 from pygame import color
 
@@ -7,18 +8,13 @@ pygame.init()
 
 
 # Global Vars
-win_x = 800
-win_y = 600
+win_x, win_y = 800, 600
 win = pygame.display.set_mode((win_x, win_y))
-intro_win = pygame.display.set_mode((win_x, win_y))
-intro_bg = pygame.image.load("assets/pics/press_start.png")
-intro_bg = pygame.transform.scale(intro_bg, (win_x, win_y))
 bg = pygame.image.load("assets/pics/forrest.png")
 bg = pygame.transform.scale(bg, (win_x, win_y))
 pygame.display.set_caption("PyTetris")
 run = True
 clock = pygame.time.Clock()
-is_start = False
 
 # Shapes
 Z = [['.....',
@@ -65,17 +61,6 @@ def redraw_win():
     draw_piece()
     pygame.display.update()
 
-
-def draw_intro():
-    intro_win.blit(intro_bg, (0,0))
-    pygame.display.update() 
-
-
-def switch_win(is_start):
-    if is_start:
-        redraw_win()
-    else:
-        draw_intro()
 
 def draw_play_area():
     play_x = 275
@@ -139,6 +124,5 @@ while run:
     if active_piece.y <= 520:
         active_piece.y += active_piece.vel
 
-    switch_win(is_start)
 
 pygame.quit()
