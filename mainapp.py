@@ -115,7 +115,8 @@ def music():
     pygame.mixer.music.play(-1)
 
 
-# music()
+music()
+
 while run:
     clock.tick(60)
 
