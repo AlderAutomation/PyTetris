@@ -27,30 +27,3 @@ class intro_menu:
             # TODO change to main menu
             print(self.is_start)
             pygame.quit()
-
-
-def main():
-    pygame.init()
-
-    intro_screen = intro_menu(800, 600)
-    intro_screen.draw_intro()
-
-    run = True
-    while run:
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                run = False
-
-        keys = pygame.key.get_pressed()
-
-        if keys[pygame.K_RETURN]:
-            intro_screen.is_start = False
-
-        intro_screen.switch_win()
-
-    pygame.quit()
-
-
-
-if __name__=="__main__":
-    main()

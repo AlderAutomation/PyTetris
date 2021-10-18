@@ -1,0 +1,52 @@
+# for tetrimos layouts and draw specifics
+import pygame 
+
+
+# Shapes
+Z = [['.....',
+      '.....',
+      '.00..',
+      '..00.',
+      '.....'],
+     ['.....',
+      '..0..',
+      '.00..',
+      '.0...',
+      '.....']]
+
+I = [['..0..',
+      '..0..',
+      '..0..',
+      '..0..',
+      '.....'],
+     ['.....',
+      '0000.',
+      '.....',
+      '.....',
+      '.....']]
+
+class piece():
+    def __init__(self, shape_input) -> None:
+        self.vel = 1
+        self.shape = shape_input
+        self.x = 375
+        self.y = 50
+        self.rotation = 0
+
+        if self.shape == Z:
+            self.block = pygame.image.load("assets/pics/z_l_block.png")
+        elif self.shape == I:
+            self.block = pygame.image.load("assets/pics/t_i_block.png")
+        else:
+            pass
+
+
+shapes = [Z, I]
+active_piece = piece(random.choice(shapes))
+
+shape_pos = convert_shape(active_piece)
+
+def draw_piece():
+    for i in range(len(shape_pos)):
+        x, y = shape_pos[i]
+        win.blit(active_piece.block, (active_piece.x + (x-50), active_piece.y + (y-75)))
