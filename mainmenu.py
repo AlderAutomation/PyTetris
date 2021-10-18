@@ -84,11 +84,21 @@ def main():
                     music_cursor = "2"
                 elif music_cursor == "2":
                     main.redraw_win()
-                    main.draw_music_cursor(320, 450)
+                    main.draw_music_cursor(320, 447)
                     main.draw_game_cursor(main.g_cursor_x, main.g_cursor_y)
                     music_cursor = "3"
+                elif music_cursor == "3":
+                    main.redraw_win()
+                    main.draw_music_cursor(320, 490)
+                    main.draw_game_cursor(main.g_cursor_x, main.g_cursor_y)
+                    music_cursor = "off"
             if event.key == pygame.K_w:
-                if music_cursor == "3":
+                if music_cursor == "off":
+                    main.redraw_win()
+                    main.draw_music_cursor(320, 447)
+                    main.draw_game_cursor(main.g_cursor_x, main.g_cursor_y)
+                    music_cursor = "3"
+                elif music_cursor == "3":
                     main.redraw_win()
                     main.draw_music_cursor(320, 405)
                     main.draw_game_cursor(main.g_cursor_x, main.g_cursor_y)
