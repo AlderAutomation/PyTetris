@@ -46,14 +46,14 @@ def convert_shape(shape):
     return positions
 
 
-def music():
+def music(song):
     pygame.mixer.init()
-    pygame.mixer.music.load("assets/audio/music1.wav")
+    pygame.mixer.music.load(song)
     pygame.mixer.music.play(-1)
 
 
 def main():
-    music()
+    music("assets/audio/music1.wav")
     intro_screen = introscreen.intro_menu(win_x, win_y)
     intro_screen.draw_intro()
 
