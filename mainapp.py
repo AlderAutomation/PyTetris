@@ -21,7 +21,7 @@ clock = pygame.time.Clock()
 def redraw_win():
     win.blit(bg, (0,0))
     draw_play_area()
-    draw_piece()
+    # draw_piece()
     pygame.display.update()
 
 
