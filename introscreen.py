@@ -5,7 +5,7 @@ import pygame
 class intro_menu:
     def __init__(self, x, y) -> None:
         self.win_x, self.win_y = x, y
-        self.intro_bg = pygame.image.load("assets/pics/press_start.png")
+        self.intro_bg = pygame.image.load("assets/pics/Start.png")
         self.intro_bg = pygame.transform.scale(self.intro_bg, (self.win_x, self.win_y))
         self.intro_win = pygame.display.set_mode((self.win_x, self.win_y))
         self.is_start = True

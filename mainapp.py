@@ -10,7 +10,7 @@ pygame.init()
 # Global Vars
 win_x, win_y = 800, 600
 win = pygame.display.set_mode((win_x, win_y))
-bg = pygame.image.load("assets/pics/forrest.png")
+bg = pygame.image.load("assets/pics/playfield.png")
 bg = pygame.transform.scale(bg, (win_x, win_y))
 pygame.display.set_caption("PyTetris")
 run = True
@@ -75,7 +75,7 @@ def main():
         #     if not active_piece.x >= 440:
         #         active_piece.x += active_piece.vel
 
-        if keys[pygame.K_RETURN]:
+        if keys[pygame.K_RETURN] and intro_screen.is_start == True:
             intro_screen.is_start = False
 
         intro_screen.switch_win()
