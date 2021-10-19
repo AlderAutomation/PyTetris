@@ -37,6 +37,61 @@ class main_menu:
         pygame.display.update()
 
 
+    def screen_input(self, eventkey):
+        # game mode selector controls
+        if eventkey == pygame.K_d:
+            if self.game_cursor == "A":
+                self.redraw_win()
+                self.draw_game_cursor(495, 148)
+                self.draw_music_cursor(self.m_cursor_x, self.m_cursor_y)
+                self.game_cursor = "B"
+        if eventkey == pygame.K_a:
+            if self.game_cursor == "B":
+                self.redraw_win()
+                self.draw_game_cursor(195, 148)
+                self.draw_music_cursor(self.m_cursor_x, self.m_cursor_y)
+                self.game_cursor = "A"
+        #  music selector controls 
+        if eventkey == pygame.K_s:
+            if self.music_cursor == "1":
+                self.redraw_win()
+                self.draw_music_cursor(320, 405)
+                self.draw_game_cursor(self.g_cursor_x, self.g_cursor_y)
+                self.music_cursor = "2"
+            elif self.music_cursor == "2":
+                self.redraw_win()
+                self.draw_music_cursor(320, 447)
+                self.draw_game_cursor(self.g_cursor_x, self.g_cursor_y)
+                self.music_cursor = "3"
+            elif self.music_cursor == "3":
+                self.redraw_win()
+                self.draw_music_cursor(320, 490)
+                self.draw_game_cursor(self.g_cursor_x, self.g_cursor_y)
+                self.music_cursor = "off"
+        if eventkey == pygame.K_w:
+            if self.music_cursor == "off":
+                self.redraw_win()
+                self.draw_music_cursor(320, 447)
+                self.draw_game_cursor(self.g_cursor_x, self.g_cursor_y)
+                self.music_cursor = "3"
+            elif self.music_cursor == "3":
+                self.redraw_win()
+                self.draw_music_cursor(320, 405)
+                self.draw_game_cursor(self.g_cursor_x, self.g_cursor_y)
+                self.music_cursor = "2"
+            elif self.music_cursor == "2":
+                self.redraw_win()
+                self.draw_music_cursor(320, 360)
+                self.draw_game_cursor(self.g_cursor_x, self.g_cursor_y)
+                self.music_cursor = "1"
+
+
+    def update(self, eventkey):
+        self.screen_input(eventkey)
+
+
+
+
 def main():
     pygame.init()
 
@@ -49,65 +104,19 @@ def main():
     main.draw_game_cursor(195, 148)
     main.draw_music_cursor(320, 360)
 
+
     while run:
-        clock.tick(30)
+        clock.tick(60)
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 run = False
 
-        event = pygame.event.wait()
-
-        if event.type == pygame.KEYDOWN :
-            if event.key == pygame.K_ESCAPE:
-                print("ESC was pressed. Quitting....")
-                pygame.quit()
-            # game cursor
-            if event.key == pygame.K_d:
-                if main.game_cursor == "A":
-                    main.redraw_win()
-                    main.draw_game_cursor(495, 148)
-                    main.draw_music_cursor(main.m_cursor_x, main.m_cursor_y)
-                    main.game_cursor = "B"
-            if event.key == pygame.K_a:
-                if main.game_cursor == "B":
-                    main.redraw_win()
-                    main.draw_game_cursor(195, 148)
-                    main.draw_music_cursor(main.m_cursor_x, main.m_cursor_y)
-                    main.game_cursor = "A"
-            # music cursor
-            if event.key == pygame.K_s:
-                if main.music_cursor == "1":
-                    main.redraw_win()
-                    main.draw_music_cursor(320, 405)
-                    main.draw_game_cursor(main.g_cursor_x, main.g_cursor_y)
-                    main.music_cursor = "2"
-                elif main.music_cursor == "2":
-                    main.redraw_win()
-                    main.draw_music_cursor(320, 447)
-                    main.draw_game_cursor(main.g_cursor_x, main.g_cursor_y)
-                    main.music_cursor = "3"
-                elif main.music_cursor == "3":
-                    main.redraw_win()
-                    main.draw_music_cursor(320, 490)
-                    main.draw_game_cursor(main.g_cursor_x, main.g_cursor_y)
-                    main.music_cursor = "off"
-            if event.key == pygame.K_w:
-                if main.music_cursor == "off":
-                    main.redraw_win()
-                    main.draw_music_cursor(320, 447)
-                    main.draw_game_cursor(main.g_cursor_x, main.g_cursor_y)
-                    main.music_cursor = "3"
-                elif main.music_cursor == "3":
-                    main.redraw_win()
-                    main.draw_music_cursor(320, 405)
-                    main.draw_game_cursor(main.g_cursor_x, main.g_cursor_y)
-                    main.music_cursor = "2"
-                elif main.music_cursor == "2":
-                    main.redraw_win()
-                    main.draw_music_cursor(320, 360)
-                    main.draw_game_cursor(main.g_cursor_x, main.g_cursor_y)
-                    main.music_cursor = "1"
+            if event.type == pygame.KEYDOWN :
+                if event.key == pygame.K_ESCAPE:
+                    print("ESC was pressed. Quitting....")
+                    pygame.quit()
+                main.update(event.key)
 
     
     pygame.quit()
