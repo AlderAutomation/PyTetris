@@ -110,7 +110,7 @@ class main_menu:
         elif self.music_cursor == "off":
             pygame.mixer.quit()
 
-
+        
 
 def main():
     pygame.init()
@@ -137,9 +137,7 @@ def main():
                     print("ESC was pressed. Quitting....")
                     pygame.quit()
                 main.update(event.key)
-
     
-    pygame.quit()
 
 if __name__ == "__main__":
     main()

@@ -1,5 +1,6 @@
 # this is going to be for splash screens and game mode selectors
 import pygame
+import mainmenu
 
 
 class intro_menu:
@@ -20,17 +21,11 @@ class intro_menu:
         self.intro_win.blit(self.intro_bg, (0,0))
 
 
-    def switch_win(self):
-        if self.is_start:
-            self.redraw_win()
-        else:
-            # TODO change to main menu
-            print(self.is_start)
-            pygame.quit()
-
     def update(self, eventkey):
         self.screen_input(eventkey)
+
 
     def screen_input(self, eventkey):
         if eventkey == pygame.K_RETURN or eventkey == pygame.K_KP_ENTER and self.is_start == True:
             self.is_start = False
+

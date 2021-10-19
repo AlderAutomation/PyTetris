@@ -2,10 +2,7 @@ import pygame
 import random
 import introscreen
 import mainmenu
-
 from pygame import color
-
-from mainmenu import main_menu
 
 pygame.init()
 
@@ -52,17 +49,20 @@ def convert_shape(shape):
 
 
 def main():
+
+
+    # Intro Screen Loop
     intro_screen = introscreen.intro_menu(win_x, win_y)
     intro_screen.draw_intro()
 
-    run = True
+    intro_loop_run = True
 
-    while run:
+    while intro_loop_run:
         clock.tick(60)
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                run = False
+                intro_loop_run = False
 
             if event.type == pygame.KEYDOWN :
                 if event.key == pygame.K_ESCAPE:
@@ -71,9 +71,39 @@ def main():
 
                 intro_screen.update(event.key)
 
-        intro_screen.switch_win()
+        if intro_screen.is_start == True:
+            continue
+        elif intro_screen.is_start == False:
+            break
 
-    pygame.quit()
+
+
+    # Main menu Loop
+    main_Menu = mainmenu.main_menu(800,600)
+    main_Menu.draw_main()
+    main_Menu.draw_game_cursor(195, 148)
+    main_Menu.draw_music_cursor(320, 360)
+    main_Menu.music()
+
+    main_menu_loop = True
+
+    while main_menu_loop:
+        clock.tick(60)
+
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                main_menu_loop = False
+
+            if event.type == pygame.KEYDOWN :
+                if event.key == pygame.K_ESCAPE:
+                    print("ESC was pressed. Quitting....")
+                    pygame.quit()
+
+                main_Menu.update(event.key)
+
+
+
+
 
 
 
