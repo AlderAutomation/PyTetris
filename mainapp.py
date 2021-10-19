@@ -1,8 +1,11 @@
 import pygame
 import random
 import introscreen
+import mainmenu
 
 from pygame import color
+
+from mainmenu import main_menu
 
 pygame.init()
 
@@ -46,14 +49,9 @@ def convert_shape(shape):
     return positions
 
 
-def music(song):
-    pygame.mixer.init()
-    pygame.mixer.music.load(song)
-    pygame.mixer.music.play(-1)
 
 
 def main():
-    music("assets/audio/music1.wav")
     intro_screen = introscreen.intro_menu(win_x, win_y)
     intro_screen.draw_intro()
 
@@ -66,23 +64,17 @@ def main():
             if event.type == pygame.QUIT:
                 run = False
 
-        keys = pygame.key.get_pressed()
+            if event.type == pygame.KEYDOWN :
+                if event.key == pygame.K_ESCAPE:
+                    print("ESC was pressed. Quitting....")
+                    pygame.quit()
 
-        # if keys[pygame.K_a]:
-        #     if not active_piece.x <= 305:
-        #         active_piece.x -= active_piece.vel
-        # elif keys[pygame.K_d]:
-        #     if not active_piece.x >= 440:
-        #         active_piece.x += active_piece.vel
+        keys = pygame.key.get_pressed()
 
         if keys[pygame.K_RETURN] and intro_screen.is_start == True:
             intro_screen.is_start = False
 
         intro_screen.switch_win()
-
-        # if active_piece.y <= 520:
-        #     active_piece.y += active_piece.vel
-
 
     pygame.quit()
 
