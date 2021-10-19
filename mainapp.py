@@ -69,10 +69,7 @@ def main():
                     print("ESC was pressed. Quitting....")
                     pygame.quit()
 
-        keys = pygame.key.get_pressed()
-
-        if keys[pygame.K_RETURN] and intro_screen.is_start == True:
-            intro_screen.is_start = False
+                intro_screen.update(event.key)
 
         intro_screen.switch_win()
 

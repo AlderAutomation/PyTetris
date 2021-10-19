@@ -27,3 +27,10 @@ class intro_menu:
             # TODO change to main menu
             print(self.is_start)
             pygame.quit()
+
+    def update(self, eventkey):
+        self.screen_input(eventkey)
+
+    def screen_input(self, eventkey):
+        if eventkey == pygame.K_RETURN or eventkey == pygame.K_KP_ENTER and self.is_start == True:
+            self.is_start = False
