@@ -35,6 +35,10 @@ https://tetris.fandom.com/wiki/Tetris_(NES,_Nintendo)
 
 
 
+informational site but not python
+
+https://meatfighter.com/nintendotetrisai/
+
 
 
 
@@ -49,6 +53,6 @@ music 2 https://www.youtube.com/watch?v=IU7_39ORGCo&list=PLEOQ0YA_1DWmQANkjJMkH8
 music 3 https://www.youtube.com/watch?v=wnohlkr9K1I&list=PLEOQ0YA_1DWmQANkjJMkH8cVOSpyHrFmU&index=6
 
 
-informational site but not python
+Splitting sounds effect out of big file 
 
-https://meatfighter.com/nintendotetrisai/
+ffmpeg -i Full_collection.mp3 -acodec copy -ss 00:00:01 -to 00:00:01 Cursor_effect.mp3

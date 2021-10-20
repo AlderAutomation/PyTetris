@@ -44,16 +44,22 @@ class main_menu:
         self.draw_game_cursor(self.g_cursor_x, self.g_cursor_y)
         self.draw_music_cursor(self.m_cursor_x, self.m_cursor_y)
 
+    def cursor_sound(self):
+        pygame.mixer.music.load("assets/audio/effects/Cursor_Move.wav")
+        pygame.mixer.music.play(1)
+
 
     def screen_input(self, eventkey):
         # game mode selector controls
         if eventkey == pygame.K_d:
+            self.cursor_sound()
             if self.game_cursor == "A":
                 self.redraw_win()
                 self.draw_game_cursor(495, 148)
                 self.draw_music_cursor(self.m_cursor_x, self.m_cursor_y)
                 self.game_cursor = "B"
         if eventkey == pygame.K_a:
+            self.cursor_sound()
             if self.game_cursor == "B":
                 self.redraw_win()
                 self.draw_game_cursor(195, 148)
