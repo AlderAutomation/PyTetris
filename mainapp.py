@@ -49,8 +49,6 @@ def convert_shape(shape):
 
 
 def main():
-
-
     # Intro Screen Loop
     intro_screen = introscreen.intro_menu(win_x, win_y)
     intro_screen.draw_intro()
@@ -101,8 +99,16 @@ def main():
 
                 main_Menu.update(event.key)
 
+        if main_Menu.is_start == True:
+            continue
+        elif main_Menu.is_start == False:
+            game_mode = main_Menu.game_cursor
+            music_select = main_Menu.music_cursor
+            break
 
-
+    pygame.quit()
+    print (game_mode)
+    print (music_select)
 
 
 

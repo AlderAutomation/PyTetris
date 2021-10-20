@@ -90,6 +90,8 @@ class main_menu:
                 self.draw_game_cursor(self.g_cursor_x, self.g_cursor_y)
                 self.music_cursor = "1"
                 self.music()
+        if eventkey == pygame.K_RETURN or eventkey == pygame.K_KP_ENTER:
+            self.is_start = False
 
 
     def update(self, eventkey):
@@ -109,35 +111,3 @@ class main_menu:
             pygame.mixer.music.play(-1)
         elif self.music_cursor == "off":
             pygame.mixer.quit()
-
-        
-
-def main():
-    pygame.init()
-
-    main = main_menu(800, 600)
-    main.draw_main()
-    clock = pygame.time.Clock()
-    run = True
-
-    main.draw_game_cursor(195, 148)
-    main.draw_music_cursor(320, 360)
-
-    main.music()
-
-    while run:
-        clock.tick(60)
-
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                run = False
-
-            if event.type == pygame.KEYDOWN :
-                if event.key == pygame.K_ESCAPE:
-                    print("ESC was pressed. Quitting....")
-                    pygame.quit()
-                main.update(event.key)
-    
-
-if __name__ == "__main__":
-    main()

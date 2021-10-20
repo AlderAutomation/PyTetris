@@ -1,6 +1,5 @@
 # this is going to be for splash screens and game mode selectors
 import pygame
-import mainmenu
 
 
 class intro_menu:
