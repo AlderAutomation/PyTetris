@@ -45,9 +45,8 @@ class main_menu:
         self.draw_music_cursor(self.m_cursor_x, self.m_cursor_y)
 
     def cursor_sound(self):
-        pygame.mixer.music.load("assets/audio/effects/Cursor_Move.wav")
-        pygame.mixer.music.play(1)
-
+        cursor_sound = pygame.mixer.Sound("assets/audio/effects/Cursor_Move.wav")
+        pygame.mixer.Sound.play(cursor_sound)
 
     def screen_input(self, eventkey):
         # game mode selector controls
@@ -125,3 +124,4 @@ class main_menu:
             pygame.mixer.music.play(-1)
         elif self.music_cursor == "off":
             pygame.mixer.quit()
+

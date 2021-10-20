@@ -27,4 +27,3 @@ class intro_menu:
     def screen_input(self, eventkey):
         if eventkey == pygame.K_RETURN or eventkey == pygame.K_KP_ENTER and self.is_start == True:
             self.is_start = False
-

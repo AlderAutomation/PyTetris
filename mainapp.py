@@ -46,6 +46,9 @@ def convert_shape(shape):
     return positions
 
 
+def screen_switch_sound():
+    switch_sound = pygame.mixer.Sound("assets/audio/effects/Switch_screen.wav")
+    pygame.mixer.Sound.play(switch_sound)
 
 
 def main():
@@ -72,6 +75,7 @@ def main():
         if intro_screen.is_start == True:
             continue
         elif intro_screen.is_start == False:
+            screen_switch_sound()
             break
 
 
@@ -106,14 +110,12 @@ def main():
         elif main_Menu.is_start == False:
             game_mode = main_Menu.game_cursor
             music_select = main_Menu.music_cursor
+            screen_switch_sound()
             break
-
-    pygame.quit()
-    print (game_mode)
-    print (music_select)
 
 
 
 
 if __name__ == "__main__":
     main()
+    pygame.quit()
