@@ -86,7 +86,7 @@ def main():
     main_menu_loop = True
 
     while main_menu_loop:
-        clock.tick(60)
+        clock.tick(30)
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -98,6 +98,8 @@ def main():
                     pygame.quit()
 
                 main_Menu.update(event.key)
+
+        main_Menu.cursor_animation()
 
         if main_Menu.is_start == True:
             continue

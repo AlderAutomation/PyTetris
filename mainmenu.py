@@ -7,6 +7,10 @@ class main_menu:
         self.menu_bg = pygame.transform.scale(self.menu_bg, (self.win_x, self.win_y))
         self.menu_win = pygame.display.set_mode((self.win_x, self.win_y))
         self.is_start = True
+        self.cursor = [pygame.image.load("assets/pics/Cursor.png"), pygame.image.load("assets/pics/CursorBlank.png")]
+        self.cursor_index = 0
+        self.game_cursor = "A"
+        self.music_cursor = "1"
 
 
     def draw_main(self):
@@ -20,21 +24,25 @@ class main_menu:
 
 
     def draw_game_cursor(self, x: int, y: int, flip=True):
-        self.game_cursor = "A"
         self.g_cursor_x, self.g_cursor_y = x, y
-        self.cursor = pygame.image.load("assets/pics/Cursor.png")
-        self.menu_win.blit(self.cursor, (self.g_cursor_x, self.g_cursor_y))
-        self.menu_win.blit(pygame.transform.flip(self.cursor, True, False), (x+180,y))
+        self.menu_win.blit(self.cursor[int(self.cursor_index)], (self.g_cursor_x, self.g_cursor_y))
+        self.menu_win.blit(pygame.transform.flip(self.cursor[int(self.cursor_index)], True, False), (self.g_cursor_x+180,self.g_cursor_y))
         pygame.display.update()
 
 
     def draw_music_cursor(self, x: int, y: int):
-        self.music_cursor = "1"
         self.m_cursor_x, self.m_cursor_y = x, y
-        self.cursor = pygame.image.load("assets/pics/Cursor.png")
-        self.menu_win.blit(self.cursor, (self.m_cursor_x, self.m_cursor_y))
-        self.menu_win.blit(pygame.transform.flip(self.cursor, True, False), (x+230,y))
+        self.menu_win.blit(self.cursor[int(self.cursor_index)], (self.m_cursor_x, self.m_cursor_y))
+        self.menu_win.blit(pygame.transform.flip(self.cursor[int(self.cursor_index)], True, False), (self.m_cursor_x+230,self.m_cursor_y))
         pygame.display.update()
+
+
+    def cursor_animation(self):
+        self.cursor_index += 1
+        if self.cursor_index >= len(self.cursor):self.cursor_index = 0
+        self.redraw_win()
+        self.draw_game_cursor(self.g_cursor_x, self.g_cursor_y)
+        self.draw_music_cursor(self.m_cursor_x, self.m_cursor_y)
 
 
     def screen_input(self, eventkey):
