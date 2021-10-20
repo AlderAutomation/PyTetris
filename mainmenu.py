@@ -23,7 +23,7 @@ class main_menu:
         pygame.display.update()
 
 
-    def draw_game_cursor(self, x: int, y: int, flip=True):
+    def draw_game_cursor(self, x: int, y: int):
         self.g_cursor_x, self.g_cursor_y = x, y
         self.menu_win.blit(self.cursor[int(self.cursor_index)], (self.g_cursor_x, self.g_cursor_y))
         self.menu_win.blit(pygame.transform.flip(self.cursor[int(self.cursor_index)], True, False), (self.g_cursor_x+180,self.g_cursor_y))
@@ -44,9 +44,11 @@ class main_menu:
         self.draw_game_cursor(self.g_cursor_x, self.g_cursor_y)
         self.draw_music_cursor(self.m_cursor_x, self.m_cursor_y)
 
+
     def cursor_sound(self):
         cursor_sound = pygame.mixer.Sound("assets/audio/effects/Cursor_Move.wav")
         pygame.mixer.Sound.play(cursor_sound)
+
 
     def screen_input(self, eventkey):
         # game mode selector controls
