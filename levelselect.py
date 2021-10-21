@@ -6,8 +6,8 @@ class level_selecter():
         self.level_bg = pygame.image.load(bglocal)
         self.level_bg = pygame.transform.scale(self.level_bg, (self.level_x, self.level_y))
         self.level_win = pygame.display.set_mode((self.level_x, self.level_y))
-        self.is_start = True
         self.cursor = [pygame.image.load("assets/pics/Level_Cursor.png"), pygame.image.load("assets/pics/CursorBlank.png")]
+        self.is_start = True
         self.l_cursor_index = 0
 
     def draw_main(self):
@@ -49,13 +49,21 @@ class level_selecter():
         cursor_sound = pygame.mixer.Sound("assets/audio/effects/Cursor_Move.wav")
         pygame.mixer.Sound.play(cursor_sound)
 
+    
+    def draw_levels(self):
+        self.levels = pygame.image.load("assets/pics/A_Level_Select_Numbers.png")
+        self.levels = pygame.transform.scale(self.levels, (275,107))
+        self.level_win.blit(self.levels, (154, 194))
+        
+        pygame.display.update()
+
 
 def main():
     clock = pygame.time.Clock()
     pygame.mixer.init()
     level_select = level_selecter("assets/pics/A_Level_Select.png", 800, 600)
     level_select.draw_main()
-    level_select.draw_level_cursor(175, 210)
+    level_select.draw_level_cursor(168, 205)
 
     level_select_loop = True
 
@@ -75,6 +83,7 @@ def main():
                 level_select.update(event.key)
 
         level_select.cursor_animation()
+        level_select.draw_levels()
 
 
 
