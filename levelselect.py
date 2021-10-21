@@ -8,7 +8,7 @@ class level_selecter():
         self.level_win = pygame.display.set_mode((self.level_x, self.level_y))
         self.is_start = True
         self.cursor = [pygame.image.load("assets/pics/Level_Cursor.png"), pygame.image.load("assets/pics/CursorBlank.png")]
-        self.cursor_index = 0
+        self.l_cursor_index = 0
 
     def draw_main(self):
         self.level_win.blit(self.level_bg, (0,0))
@@ -22,8 +22,7 @@ class level_selecter():
 
     def draw_level_cursor(self, x: int, y: int):
         self.l_cursor_x, self.l_cursor_y = x, y
-        self.cursor = pygame.image.load("assets/pics/Level_Cursor.png")
-        self.level_win.blit(self.cursor, (self.l_cursor_x, self.l_cursor_y))
+        self.level_win.blit(self.cursor[int(self.l_cursor_index)], (self.l_cursor_x, self.l_cursor_y))
         pygame.display.update()
 
 
@@ -52,13 +51,16 @@ class level_selecter():
 
 
 def main():
+    clock = pygame.time.Clock()
     pygame.mixer.init()
     level_select = level_selecter("assets/pics/A_Level_Select.png", 800, 600)
     level_select.draw_main()
+    level_select.draw_level_cursor(175, 210)
 
     level_select_loop = True
 
     while level_select_loop:
+        clock.tick(30)
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -71,8 +73,8 @@ def main():
 
 
                 level_select.update(event.key)
-                level_select.draw_level_cursor(175,210)
 
+        level_select.cursor_animation()
 
 
 
