@@ -1,9 +1,9 @@
 import pygame
 
 class level_selecter():
-    def __init__(self, bglocal: str, x: int, y: int) -> None:
+    def __init__(self, x: int, y: int) -> None:
         self.level_x, self.level_y = x, y
-        self.level_bg = pygame.image.load(bglocal)
+        self.level_bg = pygame.image.load("assets/pics/A_Level_Select.png")
         self.level_bg = pygame.transform.scale(self.level_bg, (self.level_x, self.level_y))
         self.level_win = pygame.display.set_mode((self.level_x, self.level_y))
         self.cursor = [pygame.image.load("assets/pics/Level_Cursor.png"), pygame.image.load("assets/pics/CursorBlank.png")]
@@ -142,39 +142,3 @@ class level_selecter():
         self.level_win.blit(self.levels, (154, 194))
         
         pygame.display.update()
-
-
-def main():
-    clock = pygame.time.Clock()
-    pygame.mixer.init()
-    level_select = level_selecter("assets/pics/A_Level_Select.png", 800, 600)
-    level_select.draw_main()
-    level_select.draw_level_cursor(168, 205)
-
-    level_select_loop = True
-
-    while level_select_loop:
-        clock.tick(30)
-
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                level_select_loop = False
-
-            if event.type == pygame.KEYDOWN :
-                if event.key == pygame.K_ESCAPE:
-                    print("ESC was pressed. Quitting....")
-                    pygame.quit()
-
-
-                level_select.update(event.key)
-
-        level_select.cursor_animation()
-        level_select.draw_levels()
-
-
-
-
-
-
-if __name__ == "__main__":
-    main()

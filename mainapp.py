@@ -1,6 +1,6 @@
 import pygame
-import random
 import introscreen
+import levelselect 
 import mainmenu
 from pygame import color
 
@@ -113,9 +113,35 @@ def main():
             screen_switch_sound()
             break
 
+    # Level Select Loop
+    level_select_win = levelselect.level_selecter(800, 600)
+    level_select_win.draw_main()
+    level_select_win.draw_level_cursor(168, 205)
+
+    level_select_loop = True
+
+    while level_select_loop:
+        clock.tick(30)
+
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                level_select_loop = False
+
+            if event.type == pygame.KEYDOWN :
+                if event.key == pygame.K_ESCAPE:
+                    print("ESC was pressed. Quitting....")
+                    pygame.quit()
+
+
+                level_select_win.update(event.key)
+
+        level_select_win.cursor_animation()
+        level_select_win.draw_levels()
 
 
 
 if __name__ == "__main__":
     main()
     pygame.quit()
+
+    
