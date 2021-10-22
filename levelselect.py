@@ -9,6 +9,10 @@ class level_selecter():
         self.cursor = [pygame.image.load("assets/pics/Level_Cursor.png"), pygame.image.load("assets/pics/CursorBlank.png")]
         self.is_start = True
         self.l_cursor_index = 0
+        self.levels = pygame.image.load("assets/pics/A_Level_Select_Numbers.png")
+        self.levels = pygame.transform.scale(self.levels, (275,107))
+        self.level_flag = 0
+
 
     def draw_main(self):
         self.level_win.blit(self.level_bg, (0,0))
@@ -43,6 +47,90 @@ class level_selecter():
             pygame.quit()
         if eventkey == pygame.K_d:
             self.cursor_sound()
+            if self.level_flag == 0:
+                self.redraw_win()
+                self.draw_level_cursor(218, 205)
+                self.level_flag = 1
+            elif self.level_flag == 1:
+                self.redraw_win()
+                self.draw_level_cursor(268, 205)
+                self.level_flag = 2
+            elif self.level_flag == 2:
+                self.redraw_win()
+                self.draw_level_cursor(318, 205)
+                self.level_flag = 3
+            elif self.level_flag == 3:
+                self.redraw_win()
+                self.draw_level_cursor(368, 205)
+                self.level_flag = 4
+            elif self.level_flag == 4:
+                self.redraw_win()
+                self.draw_level_cursor(168, 255)
+                self.level_flag = 5
+            elif self.level_flag == 5:
+                self.redraw_win()
+                self.draw_level_cursor(218, 255)
+                self.level_flag = 6
+            elif self.level_flag == 6:
+                self.redraw_win()
+                self.draw_level_cursor(268, 255)
+                self.level_flag = 7
+            elif self.level_flag == 7:
+                self.redraw_win()
+                self.draw_level_cursor(318, 255)
+                self.level_flag = 8
+            elif self.level_flag == 8:
+                self.redraw_win()
+                self.draw_level_cursor(368, 255)
+                self.level_flag = 9
+        if eventkey == pygame.K_a:
+            self.cursor_sound()
+            if self.level_flag == 1:
+                self.redraw_win()
+                self.draw_level_cursor(168, 205)
+                self.level_flag = 0
+            elif self.level_flag == 2:
+                self.redraw_win()
+                self.draw_level_cursor(218, 205)
+                self.level_flag = 1
+            elif self.level_flag == 3:
+                self.redraw_win()
+                self.draw_level_cursor(268, 205)
+                self.level_flag = 2
+            elif self.level_flag == 4:
+                self.redraw_win()
+                self.draw_level_cursor(318, 205)
+                self.level_flag = 3
+            elif self.level_flag == 5:
+                self.redraw_win()
+                self.draw_level_cursor(368, 205)
+                self.level_flag = 4
+            elif self.level_flag == 6:
+                self.redraw_win()
+                self.draw_level_cursor(168, 255)
+                self.level_flag = 5
+            elif self.level_flag == 7:
+                self.redraw_win()
+                self.draw_level_cursor(218, 255)
+                self.level_flag = 6
+            elif self.level_flag == 8:
+                self.redraw_win()
+                self.draw_level_cursor(268, 255)
+                self.level_flag = 7
+            elif self.level_flag == 9:
+                self.redraw_win()
+                self.draw_level_cursor(318, 255)
+                self.level_flag = 8
+        if eventkey == pygame.K_w:
+            self.cursor_sound()
+            if self.l_cursor_y == 255:
+                self.l_cursor_y = 205
+                self.level_flag = self.level_flag - 4
+        if eventkey == pygame.K_s:
+            self.cursor_sound()
+            if self.l_cursor_y == 205:
+                self.l_cursor_y = 255
+                self.level_flag = self.level_flag + 4
 
 
     def cursor_sound(self):
@@ -51,8 +139,6 @@ class level_selecter():
 
     
     def draw_levels(self):
-        self.levels = pygame.image.load("assets/pics/A_Level_Select_Numbers.png")
-        self.levels = pygame.transform.scale(self.levels, (275,107))
         self.level_win.blit(self.levels, (154, 194))
         
         pygame.display.update()
