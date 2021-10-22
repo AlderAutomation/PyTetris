@@ -16,43 +16,7 @@ pygame.display.set_caption("PyTetris")
 run = True
 clock = pygame.time.Clock()
 
-
-
-def redraw_win():
-    win.blit(bg, (0,0))
-    draw_play_area()
-    # draw_piece()
-    pygame.display.update()
-
-
-def draw_play_area():
-    play_x = 275
-    play_y = 50
-    play_width = 250
-    play_hieght = 500
-    pygame.draw.rect(win, (0,0,0), (play_x, play_y, play_width, play_hieght))
-
-
-def convert_shape(shape):
-    positions = []
-    formatt = shape.shape[shape.rotation % len(shape.shape)]
-
-    for i, line in enumerate(formatt):
-        row = list(line)
-        for j, column in enumerate(row):
-            if column == '0':
-                positions.append((j * 26, i * 26))
-
-    return positions
-
-
-def screen_switch_sound():
-    switch_sound = pygame.mixer.Sound("assets/audio/effects/Switch_screen.wav")
-    pygame.mixer.Sound.play(switch_sound)
-
-
-def main():
-    # Intro Screen Loop
+def intro_screen_loop():
     intro_screen = introscreen.intro_menu(win_x, win_y)
     intro_screen.draw_intro()
 
@@ -79,8 +43,7 @@ def main():
             break
 
 
-
-    # Main menu Loop
+def main_menu_loop():
     main_Menu = mainmenu.main_menu(800,600)
     main_Menu.draw_main()
     main_Menu.draw_game_cursor(195, 148)
@@ -113,7 +76,8 @@ def main():
             screen_switch_sound()
             break
 
-    # Level Select Loop
+
+def level_select_loop():
     level_select_win = levelselect.level_selecter(800, 600)
     level_select_win.draw_main()
     level_select_win.draw_level_cursor(168, 205)
@@ -137,6 +101,21 @@ def main():
 
         level_select_win.cursor_animation()
         level_select_win.draw_levels()
+
+
+def screen_switch_sound():
+    switch_sound = pygame.mixer.Sound("assets/audio/effects/Switch_screen.wav")
+    pygame.mixer.Sound.play(switch_sound)
+
+
+def main():
+
+    intro_screen_loop()
+    
+    main_menu_loop()
+
+    level_select_loop()
+
 
 
 
