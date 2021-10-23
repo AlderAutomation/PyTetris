@@ -126,4 +126,5 @@ class main_menu:
             pygame.mixer.music.play(-1)
         elif self.music_cursor == "off":
             pygame.mixer.quit()
+            pygame.mixer.init()
 
