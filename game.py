@@ -3,11 +3,27 @@ import pygame
 import random
 
 
+pygame.init()
+pygame.font.init()
 
 
-class game:
-    def __init__(self) -> None:
-        pass
+class game():
+    def __init__(self, x: int, y: int) -> None:
+        self.game_x, self.game_y = x, y
+        self.game_bg = pygame.image.load("assets/pics/playfield.png")
+        self.game_bg = pygame.transform.scale(self.game_bg, (self.game_x, self.game_y))
+        self.game_win = pygame.display.set_mode((self.game_x, self.game_y))
+        self.game_text = pygame.font.Font("assets/Tetris.ttf", 25)
+        self.white = (255,255,255)
+        self.black = (0,0,0)
+        self.score = 0
+
+
+
+    def draw_win(self) -> None:
+        self.game_win.blit(self.game_bg, (0,0))
+        self.update_score(self.score)
+        pygame.display.update()
 
 
     def pause(self) -> None:
@@ -18,15 +34,21 @@ class game:
         pass
 
 
-    def wating_piece(self) -> None:
+    def waiting_piece(self) -> None:
         pass
     
 
-    def update_score(self) -> None:
-        pass
+    def update_score(self, score: str) -> None:
+        leading_0_score = str(score).zfill(6)
+        self.score_surface = self.game_text.render(leading_0_score, False, self.white, self.black)
+        self.game_win.blit(self.score_surface, (600,150))
 
 
     def update_piece_count(self) -> None:
+        pass
+
+
+    def display_pieces_for_count(self) -> None:
         pass
 
     
@@ -60,24 +82,30 @@ class game:
 
 
     def main(self) -> None:
+        game_win = game(800, 600)
+        game_win.draw_win()
+
         game_running = True
+
         clock = pygame.time.Clock()
 
         while game_running:
             clock.tick(60)
 
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                game_running = False
-
-            if event.type == pygame.KEYDOWN :
-                if event.key == pygame.K_ESCAPE:
-                    print("ESC was pressed. Quitting....")
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
                     game_running = False
+
+                if event.type == pygame.KEYDOWN :
+                    if event.key == pygame.K_ESCAPE:
+                        print("ESC was pressed. Quitting....")
+                        game_running = False
+
+            game_win.draw_win()
 
 
 
 
 if __name__== "__main__":
-    Tetris = game().main()
+    Tetris = game(800, 600).main()
     Tetris

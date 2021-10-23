@@ -15,6 +15,12 @@ game_mode = ""
 music_select = ""
 level_flag = ""
 
+
+def screen_switch_sound():
+    switch_sound = pygame.mixer.Sound("assets/audio/effects/Switch_screen.wav")
+    pygame.mixer.Sound.play(switch_sound)
+
+
 def intro_screen_loop():
     intro_screen = introscreen.intro_menu(win_x, win_y)
     intro_screen.draw_intro()
@@ -44,7 +50,7 @@ def intro_screen_loop():
 
 def main_menu_loop():
     global game_mode, music_select
-    main_Menu = mainmenu.main_menu(800,600)
+    main_Menu = mainmenu.main_menu(win_x, win_y)
     main_Menu.draw_main()
     main_Menu.draw_game_cursor(195, 148)
     main_Menu.draw_music_cursor(320, 360)
@@ -80,7 +86,7 @@ def main_menu_loop():
 def level_select_loop():
     global level_flag
 
-    level_select_win = levelselect.level_selecter(800, 600)
+    level_select_win = levelselect.level_selecter(win_x, win_y)
     level_select_win.draw_main()
     level_select_win.draw_level_cursor(168, 205)
     level_select_win.draw_levels()
@@ -110,12 +116,6 @@ def level_select_loop():
             level_flag = level_select_win.level_flag
             screen_switch_sound()
             break
-
-
-
-def screen_switch_sound():
-    switch_sound = pygame.mixer.Sound("assets/audio/effects/Switch_screen.wav")
-    pygame.mixer.Sound.play(switch_sound)
 
 
 def main():
