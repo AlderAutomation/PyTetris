@@ -1,6 +1,7 @@
 # for main play space and game rules 
 import pygame
 import random
+import csv
 
 
 pygame.init()
@@ -17,12 +18,13 @@ class game():
         self.white = (255,255,255)
         self.black = (0,0,0)
         self.score = 0
-
+        self.load_hi_scores()
 
 
     def draw_win(self) -> None:
         self.game_win.blit(self.game_bg, (0,0))
         self.update_score(self.score)
+        self.draw_hi_score()
         pygame.display.update()
 
 
@@ -44,6 +46,22 @@ class game():
         self.game_win.blit(self.score_surface, (600,150))
 
 
+    def draw_hi_score(self) -> None:
+        leading_0_score = str(self.hi_score_1).zfill(6)
+        self.hi_score_surface = self.game_text.render(leading_0_score, False, self.white, self.black)
+        self.game_win.blit(self.hi_score_surface, (600,90))
+
+
+    def load_hi_scores(self) -> None:
+        scores = []
+        with open("assets/hi-scores.csv") as csv_file:
+            lines = csv.reader(csv_file, delimiter=",")
+            for row in lines:
+                scores.append(int(row[2]))
+        
+        self.hi_score_1 = (scores[0])
+
+
     def update_piece_count(self) -> None:
         pass
 
@@ -57,10 +75,6 @@ class game():
 
 
     def update_line(self) -> None:
-        pass
-
-
-    def top_score(self) -> None:
         pass
 
 
@@ -89,6 +103,9 @@ class game():
 
         clock = pygame.time.Clock()
 
+        game_win.load_hi_scores()
+
+
         while game_running:
             clock.tick(60)
 
@@ -105,7 +122,7 @@ class game():
 
 
 
-
 if __name__== "__main__":
     Tetris = game(800, 600).main()
     Tetris
+    
