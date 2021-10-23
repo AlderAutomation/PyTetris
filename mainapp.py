@@ -7,11 +7,7 @@ from pygame import color
 pygame.init()
 
 
-# Global Vars
 win_x, win_y = 800, 600
-win = pygame.display.set_mode((win_x, win_y))
-bg = pygame.image.load("assets/pics/playfield.png")
-bg = pygame.transform.scale(bg, (win_x, win_y))
 pygame.display.set_caption("PyTetris")
 run = True
 clock = pygame.time.Clock()
@@ -35,7 +31,7 @@ def intro_screen_loop():
             if event.type == pygame.KEYDOWN :
                 if event.key == pygame.K_ESCAPE:
                     print("ESC was pressed. Quitting....")
-                    pygame.quit()
+                    intro_loop_run = False
 
                 intro_screen.update(event.key)
 
@@ -66,7 +62,7 @@ def main_menu_loop():
             if event.type == pygame.KEYDOWN :
                 if event.key == pygame.K_ESCAPE:
                     print("ESC was pressed. Quitting....")
-                    pygame.quit()
+                    main_menu_loop = False
 
                 main_Menu.update(event.key)
 
@@ -101,7 +97,7 @@ def level_select_loop():
             if event.type == pygame.KEYDOWN :
                 if event.key == pygame.K_ESCAPE:
                     print("ESC was pressed. Quitting....")
-                    pygame.quit()
+                    level_select_loop = False
 
                 level_select_win.update(event.key)
 
