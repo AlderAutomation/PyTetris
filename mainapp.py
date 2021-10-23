@@ -11,9 +11,11 @@ win_x, win_y = 800, 600
 pygame.display.set_caption("PyTetris")
 run = True
 clock = pygame.time.Clock()
-game_mode = ""
-music_select = ""
-level_flag = ""
+# set in main loop only
+GAME_MODE = ""
+MUSIC_FLAG = ""
+# set in level select loop only
+LEVEL_FLAG = ""
 
 
 def screen_switch_sound():
@@ -49,7 +51,7 @@ def intro_screen_loop():
 
 
 def main_menu_loop():
-    global game_mode, music_select
+    global GAME_MODE, MUSIC_FLAG
     main_Menu = mainmenu.main_menu(win_x, win_y)
     main_Menu.draw_main()
     main_Menu.draw_game_cursor(195, 148)
@@ -77,14 +79,14 @@ def main_menu_loop():
         if main_Menu.is_start == True:
             continue
         elif main_Menu.is_start == False:
-            game_mode = main_Menu.game_cursor
-            music_select = main_Menu.music_cursor
+            GAME_MODE = main_Menu.game_cursor
+            MUSIC_FLAG = main_Menu.music_cursor
             screen_switch_sound()
             break
 
 
 def level_select_loop():
-    global level_flag
+    global LEVEL_FLAG
 
     level_select_win = levelselect.level_selecter(win_x, win_y)
     level_select_win.draw_main()
@@ -113,7 +115,7 @@ def level_select_loop():
         if level_select_win.is_start == True:
             continue
         elif level_select_win.is_start == False:
-            level_flag = level_select_win.level_flag
+            LEVEL_FLAG = level_select_win.level_flag
             screen_switch_sound()
             break
 
@@ -123,11 +125,8 @@ def main():
     intro_screen_loop()
     
     main_menu_loop()
-    print (game_mode)
-    print (music_select)
 
     level_select_loop()
-    print(level_flag)
 
 
 

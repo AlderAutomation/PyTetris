@@ -9,8 +9,9 @@ pygame.font.init()
 
 
 class game():
-    def __init__(self, x: int, y: int) -> None:
+    def __init__(self, x: int, y: int, lvl: int) -> None:
         self.game_x, self.game_y = x, y
+        self.lvl = lvl
         self.game_bg = pygame.image.load("assets/pics/playfield.png")
         self.game_bg = pygame.transform.scale(self.game_bg, (self.game_x, self.game_y))
         self.game_win = pygame.display.set_mode((self.game_x, self.game_y))
@@ -19,12 +20,15 @@ class game():
         self.black = (0,0,0)
         self.score = 0
         self.load_hi_scores()
-
+        self.lines = 0
+    
 
     def draw_win(self) -> None:
         self.game_win.blit(self.game_bg, (0,0))
-        self.update_score(self.score)
+        self.draw_score()
         self.draw_hi_score()
+        self.draw_level()
+        self.draw_lines()
         pygame.display.update()
 
 
@@ -40,15 +44,15 @@ class game():
         pass
     
 
-    def update_score(self, score: str) -> None:
-        leading_0_score = str(score).zfill(6)
-        self.score_surface = self.game_text.render(leading_0_score, False, self.white, self.black)
+    def draw_score(self) -> None:
+        leading_0s = str(self.score).zfill(6)
+        self.score_surface = self.game_text.render(leading_0s, False, self.white, self.black)
         self.game_win.blit(self.score_surface, (600,150))
 
 
     def draw_hi_score(self) -> None:
-        leading_0_score = str(self.hi_score_1).zfill(6)
-        self.hi_score_surface = self.game_text.render(leading_0_score, False, self.white, self.black)
+        leading_0s = str(self.hi_score_1).zfill(6)
+        self.hi_score_surface = self.game_text.render(leading_0s, False, self.white, self.black)
         self.game_win.blit(self.hi_score_surface, (600,90))
 
 
@@ -62,6 +66,12 @@ class game():
         self.hi_score_1 = (scores[0])
 
 
+    def draw_level(self) -> None:
+        leading_0s = str(self.lvl).zfill(2)
+        self.lvl_surface = self.game_text.render(leading_0s, False, self.white, self.black)
+        self.game_win.blit(self.lvl_surface, (650,430))
+
+
     def update_piece_count(self) -> None:
         pass
 
@@ -69,13 +79,12 @@ class game():
     def display_pieces_for_count(self) -> None:
         pass
 
-    
-    def update_level(self) -> None:
-        pass
 
+    def draw_lines(self) -> None:
+        leading_0s = str(self.lines).zfill(3)
+        self.lines_surface = self.game_text.render(leading_0s, False, self.white, self.black)
+        self.game_win.blit(self.lines_surface, (475, 42))
 
-    def update_line(self) -> None:
-        pass
 
 
     def on_lose(self) -> None:
@@ -92,18 +101,14 @@ class game():
         pass
 
 
-
-
-
     def main(self) -> None:
-        game_win = game(800, 600)
-        game_win.draw_win()
+        self.draw_win()
 
         game_running = True
 
         clock = pygame.time.Clock()
 
-        game_win.load_hi_scores()
+        self.load_hi_scores()
 
 
         while game_running:
@@ -118,11 +123,11 @@ class game():
                         print("ESC was pressed. Quitting....")
                         game_running = False
 
-            game_win.draw_win()
+            self.draw_win()
 
 
 
 if __name__== "__main__":
-    Tetris = game(800, 600).main()
+    Tetris = game(800, 600, 0).main()
     Tetris
     
