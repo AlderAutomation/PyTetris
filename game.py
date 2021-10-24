@@ -3,10 +3,7 @@ import pygame
 import random
 import csv
 
-
 pygame.init()
-pygame.font.init()
-
 
 class game():
     def __init__(self, x: int, y: int, lvl: int) -> None:
@@ -21,6 +18,13 @@ class game():
         self.score = 0
         self.load_hi_scores()
         self.lines = 0
+        self.t_count = 0
+        self.j_count = 0
+        self.z_count = 0
+        self.o_count = 0
+        self.s_count = 0
+        self.l_count = 0
+        self.i_count = 0
     
 
     def draw_win(self) -> None:
@@ -45,15 +49,11 @@ class game():
     
 
     def draw_score(self) -> None:
-        leading_0s = str(self.score).zfill(6)
-        self.score_surface = self.game_text.render(leading_0s, False, self.white, self.black)
-        self.game_win.blit(self.score_surface, (600,150))
+        stat_builder(self.score, 600, 150, self)
 
 
     def draw_hi_score(self) -> None:
-        leading_0s = str(self.hi_score_1).zfill(6)
-        self.hi_score_surface = self.game_text.render(leading_0s, False, self.white, self.black)
-        self.game_win.blit(self.hi_score_surface, (600,90))
+        stat_builder(self.hi_score_1, 600, 90, self)
 
 
     def load_hi_scores(self) -> None:
@@ -67,9 +67,7 @@ class game():
 
 
     def draw_level(self) -> None:
-        leading_0s = str(self.lvl).zfill(2)
-        self.lvl_surface = self.game_text.render(leading_0s, False, self.white, self.black)
-        self.game_win.blit(self.lvl_surface, (650,430))
+        stat_builder(self.lvl, 650, 430, self, 2)
 
 
     def update_piece_count(self) -> None:
@@ -81,10 +79,7 @@ class game():
 
 
     def draw_lines(self) -> None:
-        leading_0s = str(self.lines).zfill(3)
-        self.lines_surface = self.game_text.render(leading_0s, False, self.white, self.black)
-        self.game_win.blit(self.lines_surface, (475, 42))
-
+        stat_builder(self.lines, 475, 42, self, 3)
 
 
     def on_lose(self) -> None:
@@ -124,6 +119,13 @@ class game():
                         game_running = False
 
             self.draw_win()
+
+
+class stat_builder:
+    def __init__(self, stat: int, x: int, y: int, obj: object, zeros: int = 6) -> None:
+        leading_0s = str(stat).zfill(zeros)
+        obj.lines_surface = obj.game_text.render(leading_0s, False, obj.white, obj.black)
+        obj.game_win.blit(obj.lines_surface, (x, y))
 
 
 
