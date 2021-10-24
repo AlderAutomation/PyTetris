@@ -2,6 +2,7 @@
 import pygame
 import random
 import csv
+import pieces
 
 pygame.init()
 
@@ -25,9 +26,10 @@ class game():
         self.s_count = 0
         self.l_count = 0
         self.i_count = 0
-        # self.play_width, self.play_height = 250, 500
-        self.grid = self.create_grid()
+        self.locked_positions = {}
+        self.grid = self.create_grid(self.locked_positions)
         self.block_size = 24
+        self.next_piece = self.create_random_piece()
 
 
     def draw_win(self) -> None:
@@ -37,6 +39,7 @@ class game():
         self.draw_lines()
         self.draw_grid(self.grid)
         self.update_piece_count()
+        self.draw_next_piece()
         pygame.display.update()
 
 
@@ -44,13 +47,20 @@ class game():
         pass
 
 
-    def random_piece(self) -> None:
-        pass
+    def create_random_piece(self) -> object:
+        return pieces.Piece()
 
 
-    def waiting_piece(self) -> None:
-        pass
-    
+    def draw_next_piece(self) -> None:
+        block = self.next_piece.colour
+        format = self.next_piece.shape_choice[self.next_piece.rotation % len(self.next_piece.shape_choice)]
+
+        for i, line in enumerate(format):
+            row = list(line)
+            for j, column in enumerate(row):
+                if column == "0":
+                    self.game_win.blit(block, (560+j*25,300+i*25))
+
 
     def draw_scores(self) -> None:
         score = stat_builder(self.score, 578, 170, self)
@@ -116,7 +126,6 @@ class game():
             for j in range(len(grid[i])):
                 pygame.draw.rect(self.game_win, grid[i][j], (287+j*self.block_size, 121+i*self.block_size, self.block_size, self.block_size), 1)
 
-
         
     def screen_input(self) -> None:
         pass
@@ -152,7 +161,6 @@ class stat_builder:
         leading_0s = str(stat).zfill(zeros)
         obj.lines_surface = obj.game_text.render(leading_0s, False, obj.white, obj.black)
         obj.game_win.blit(obj.lines_surface, (x, y))
-
 
 
 if __name__== "__main__":
