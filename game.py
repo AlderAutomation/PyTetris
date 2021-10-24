@@ -29,10 +29,10 @@ class game():
 
     def draw_win(self) -> None:
         self.game_win.blit(self.game_bg, (0,0))
-        self.draw_score()
-        self.draw_hi_score()
+        self.draw_scores()
         self.draw_level()
         self.draw_lines()
+        self.update_piece_count()
         pygame.display.update()
 
 
@@ -48,12 +48,9 @@ class game():
         pass
     
 
-    def draw_score(self) -> None:
-        stat_builder(self.score, 600, 150, self)
-
-
-    def draw_hi_score(self) -> None:
-        stat_builder(self.hi_score_1, 600, 90, self)
+    def draw_scores(self) -> None:
+        score = stat_builder(self.score, 600, 150, self)
+        hiscore = stat_builder(self.hi_score_1, 600, 90, self)
 
 
     def load_hi_scores(self) -> None:
@@ -71,7 +68,14 @@ class game():
 
 
     def update_piece_count(self) -> None:
-        pass
+        T_count = stat_builder(self.t_count, 150, 240, self, 3)
+        J_count = stat_builder(self.j_count, 150, 280, self, 3)
+        Z_count = stat_builder(self.z_count, 150, 320, self, 3)
+        O_count = stat_builder(self.o_count, 150, 360, self, 3)
+        S_count = stat_builder(self.s_count, 150, 400, self, 3)
+        L_count = stat_builder(self.l_count, 150, 440, self, 3)
+        I_count = stat_builder(self.i_count, 150, 480, self, 3)
+
 
 
     def display_pieces_for_count(self) -> None:
