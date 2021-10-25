@@ -83,13 +83,13 @@ class game():
 
 
     def update_piece_count(self) -> None:
-        T_count = stat_builder(self.t_count, 150, 240, self, 3, (216,40,0))
-        J_count = stat_builder(self.j_count, 150, 280, self, 3, (216,40,0))
-        Z_count = stat_builder(self.z_count, 150, 320, self, 3, (216,40,0))
-        O_count = stat_builder(self.o_count, 150, 360, self, 3, (216,40,0))
-        S_count = stat_builder(self.s_count, 150, 400, self, 3, (216,40,0))
-        L_count = stat_builder(self.l_count, 150, 440, self, 3, (216,40,0))
-        I_count = stat_builder(self.i_count, 150, 480, self, 3, (216,40,0))
+        T_count = stat_builder(self.t_count, 155, 240, self, 3, (216,40,0))
+        J_count = stat_builder(self.j_count, 155, 290, self, 3, (216,40,0))
+        Z_count = stat_builder(self.z_count, 155, 345, self, 3, (216,40,0))
+        O_count = stat_builder(self.o_count, 155, 400, self, 3, (216,40,0))
+        S_count = stat_builder(self.s_count, 155, 450, self, 3, (216,40,0))
+        L_count = stat_builder(self.l_count, 155, 510, self, 3, (216,40,0))
+        I_count = stat_builder(self.i_count, 155, 560, self, 3, (216,40,0))
 
 
     def choose_piece_and_pos(self, choice: int, x: int, y: int) -> None:
@@ -102,15 +102,15 @@ class game():
                 if column == "0":
                     self.game_win.blit(piece.chosen_colour, (x + j * 25, y + i * 25))
 
-    def draw_pieces_for_counter(self) -> None:
-        T = self.choose_piece_and_pos(6, 40, 170)
-        J = self.choose_piece_and_pos(4, 40, 225)
-        Z = self.choose_piece_and_pos(1, 40, 280)
-        O = self.choose_piece_and_pos(3, 30, 335)
-        S = self.choose_piece_and_pos(0, 40, 390)
-        L = self.choose_piece_and_pos(5, 40, 445)
-        I = self.choose_piece_and_pos(2, 55, 510)
 
+    def draw_pieces_for_counter(self) -> None:
+        T = self.choose_piece_and_pos(6, 35, 170)
+        J = self.choose_piece_and_pos(4, 35, 225)
+        Z = self.choose_piece_and_pos(1, 35, 280)
+        O = self.choose_piece_and_pos(3, 25, 335)
+        S = self.choose_piece_and_pos(0, 35, 390)
+        L = self.choose_piece_and_pos(5, 35, 445)
+        I = self.choose_piece_and_pos(2, 50, 510)
 
 
     def draw_lines(self) -> None:
