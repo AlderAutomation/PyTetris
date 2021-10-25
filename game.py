@@ -19,17 +19,13 @@ class game():
         self.score = 0
         self.load_hi_scores()
         self.lines = 0
-        self.t_count = 0
-        self.j_count = 0
-        self.z_count = 0
-        self.o_count = 0
-        self.s_count = 0
-        self.l_count = 0
-        self.i_count = 0
+        self.t_count, self.j_count, self.z_count, self.o_count = 0, 0, 0, 0
+        self.l_count, self.i_count, self.s_count = 0, 0, 0
         self.locked_positions = {}
         self.grid = self.create_grid(self.locked_positions)
         self.block_size = 24
         self.next_piece = self.create_random_piece()
+        self.current_piece = self.create_random_piece()
 
 
     def draw_win(self) -> None:
@@ -39,8 +35,9 @@ class game():
         self.draw_lines()
         self.draw_grid(self.grid)
         self.update_piece_count()
-        self.draw_next_piece()
         self.draw_pieces_for_counter()
+        self.draw_next_piece()
+        self.draw_current_piece()
         pygame.display.update()
 
 
@@ -60,7 +57,23 @@ class game():
             row = list(line)
             for j, column in enumerate(row):
                 if column == "0":
-                    self.game_win.blit(block, (560 + j * 25, 300 + i * 25))
+                    self.game_win.blit(block, (575 + j * 25, 320 + i * 25))
+
+
+    def draw_current_piece(self) -> None:
+        block = self.next_piece.colour
+        format = self.next_piece.random_shape_choice[self.next_piece.rotation % len(self.next_piece.random_shape_choice)]
+
+        for i, line in enumerate(format):
+            row = list(line)
+            for j, column in enumerate(row):
+                if column == "0":
+                    self.game_win.blit(block, (350 + j * 25, 90 + i * 25))
+
+
+    def swap_next_with_current_piece(self) -> None:
+        self.current_piece = self.next_piece
+        self.next_piece = self.create_random_piece()
 
 
     def draw_scores(self) -> None:
@@ -81,6 +94,10 @@ class game():
     def draw_level(self) -> None:
         stat_builder(self.lvl, 625, 480, self, 2)
 
+
+    def change_level(self) -> None:
+        """Every ten lines. sound effect. speed increase"""
+        pass
 
     def update_piece_count(self) -> None:
         T_count = stat_builder(self.t_count, 155, 240, self, 3, (216,40,0))
@@ -104,13 +121,13 @@ class game():
 
 
     def draw_pieces_for_counter(self) -> None:
-        T = self.choose_piece_and_pos(6, 35, 170)
-        J = self.choose_piece_and_pos(4, 35, 225)
-        Z = self.choose_piece_and_pos(1, 35, 280)
-        O = self.choose_piece_and_pos(3, 25, 335)
-        S = self.choose_piece_and_pos(0, 35, 390)
-        L = self.choose_piece_and_pos(5, 35, 445)
-        I = self.choose_piece_and_pos(2, 50, 510)
+        T = self.choose_piece_and_pos(6, 50, 230)
+        J = self.choose_piece_and_pos(4, 50, 285)
+        Z = self.choose_piece_and_pos(1, 50, 340)
+        O = self.choose_piece_and_pos(3, 60, 395)
+        S = self.choose_piece_and_pos(0, 50, 450)
+        L = self.choose_piece_and_pos(5, 50, 505)
+        I = self.choose_piece_and_pos(2, 45, 535)
 
 
     def draw_lines(self) -> None:
@@ -127,7 +144,7 @@ class game():
         pass
 
 
-    def create_grid(self, locked_pos = {}) -> object:
+    def create_grid(self, locked_pos = {}) -> list:
         grid = [[(self.white)for _ in range(10)] for _ in range(20)]
 
         for i in range(len(grid)):
@@ -139,7 +156,7 @@ class game():
             return grid
 
 
-    def draw_grid(self, grid: object) -> None:
+    def draw_grid(self, grid: list) -> None:
         for i in range(len(grid)):
             for j in range(len(grid[i])):
                 pygame.draw.rect(self.game_win, grid[i][j], (287+j*self.block_size, 121+i*self.block_size, self.block_size, self.block_size), 1)
