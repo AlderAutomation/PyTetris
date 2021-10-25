@@ -40,6 +40,7 @@ class game():
         self.draw_grid(self.grid)
         self.update_piece_count()
         self.draw_next_piece()
+        self.draw_pieces_for_counter()
         pygame.display.update()
 
 
@@ -53,7 +54,7 @@ class game():
 
     def draw_next_piece(self) -> None:
         block = self.next_piece.colour
-        format = self.next_piece.shape_choice[self.next_piece.rotation % len(self.next_piece.shape_choice)]
+        format = self.next_piece.random_shape_choice[self.next_piece.rotation % len(self.next_piece.random_shape_choice)]
 
         for i, line in enumerate(format):
             row = list(line)
@@ -91,8 +92,25 @@ class game():
         I_count = stat_builder(self.i_count, 150, 480, self, 3, (216,40,0))
 
 
-    def display_pieces_for_count(self) -> None:
-        pass
+    def choose_piece_and_pos(self, choice: int, x: int, y: int) -> None:
+        piece = pieces.Piece(choice)
+        format = piece.chosen_shape[piece.rotation % len(piece.chosen_shape)]
+
+        for i, line in enumerate(format):
+            row = list(line)
+            for j, column in enumerate(row):
+                if column == "0":
+                    self.game_win.blit(piece.chosen_colour, (x + j * 25, y + i * 25))
+
+    def draw_pieces_for_counter(self) -> None:
+        T = self.choose_piece_and_pos(6, 40, 170)
+        J = self.choose_piece_and_pos(4, 40, 225)
+        Z = self.choose_piece_and_pos(1, 40, 280)
+        O = self.choose_piece_and_pos(3, 30, 335)
+        S = self.choose_piece_and_pos(0, 40, 390)
+        L = self.choose_piece_and_pos(5, 40, 445)
+        I = self.choose_piece_and_pos(2, 55, 510)
+
 
 
     def draw_lines(self) -> None:
