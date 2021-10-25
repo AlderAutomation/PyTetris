@@ -59,7 +59,7 @@ class game():
             row = list(line)
             for j, column in enumerate(row):
                 if column == "0":
-                    self.game_win.blit(block, (560+j*25,300+i*25))
+                    self.game_win.blit(block, (560 + j * 25, 300 + i * 25))
 
 
     def draw_scores(self) -> None:
@@ -82,13 +82,13 @@ class game():
 
 
     def update_piece_count(self) -> None:
-        T_count = stat_builder(self.t_count, 150, 240, self, 3)
-        J_count = stat_builder(self.j_count, 150, 280, self, 3)
-        Z_count = stat_builder(self.z_count, 150, 320, self, 3)
-        O_count = stat_builder(self.o_count, 150, 360, self, 3)
-        S_count = stat_builder(self.s_count, 150, 400, self, 3)
-        L_count = stat_builder(self.l_count, 150, 440, self, 3)
-        I_count = stat_builder(self.i_count, 150, 480, self, 3)
+        T_count = stat_builder(self.t_count, 150, 240, self, 3, (216,40,0))
+        J_count = stat_builder(self.j_count, 150, 280, self, 3, (216,40,0))
+        Z_count = stat_builder(self.z_count, 150, 320, self, 3, (216,40,0))
+        O_count = stat_builder(self.o_count, 150, 360, self, 3, (216,40,0))
+        S_count = stat_builder(self.s_count, 150, 400, self, 3, (216,40,0))
+        L_count = stat_builder(self.l_count, 150, 440, self, 3, (216,40,0))
+        I_count = stat_builder(self.i_count, 150, 480, self, 3, (216,40,0))
 
 
     def display_pieces_for_count(self) -> None:
@@ -157,9 +157,9 @@ class game():
 
 
 class stat_builder:
-    def __init__(self, stat: int, x: int, y: int, obj: object, zeros: int = 6) -> None:
+    def __init__(self, stat: int, x: int, y: int, obj: object, zeros: int = 6, colour: str = (255,255,255)) -> None:
         leading_0s = str(stat).zfill(zeros)
-        obj.lines_surface = obj.game_text.render(leading_0s, False, obj.white, obj.black)
+        obj.lines_surface = obj.game_text.render(leading_0s, False, colour, obj.black)
         obj.game_win.blit(obj.lines_surface, (x, y))
 
 
