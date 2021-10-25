@@ -145,8 +145,25 @@ class game():
                 pygame.draw.rect(self.game_win, grid[i][j], (287+j*self.block_size, 121+i*self.block_size, self.block_size, self.block_size), 1)
 
         
-    def screen_input(self) -> None:
-        pass
+    def screen_input(self, event: object) -> None:
+        """A = move left
+        D = Move right 
+        S = faster downward velocity 
+        Enter = Rotate Piece
+        P = Pause
+        Esc = Quit"""
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_a:
+                print("left")
+            if event.key == pygame.K_d:
+                print("Right")
+            if event.key == pygame.K_s:
+                print("Fast Fall")
+            if event.key == pygame.K_RETURN:
+                print("rotate")
+            if event.key == pygame.K_p:
+                print("Pause")
+
 
 
     def main(self) -> None:
@@ -170,6 +187,8 @@ class game():
                     if event.key == pygame.K_ESCAPE:
                         print("ESC was pressed. Quitting....")
                         game_running = False
+
+                self.screen_input(event)
 
             self.draw_win()
 
