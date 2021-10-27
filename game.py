@@ -176,13 +176,13 @@ class game():
         Esc = Quit"""
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_a:
-                print("left")
+                self.current_piece.x -= 25
             if event.key == pygame.K_d:
-                print("Right")
+                self.current_piece.x += 25
             if event.key == pygame.K_s:
                 print("Fast Fall")
             if event.key == pygame.K_RETURN:
-                print("rotate")
+                self.current_piece.rotation += 1
             if event.key == pygame.K_p:
                 print("Pause")
 
