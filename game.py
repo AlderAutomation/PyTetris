@@ -8,6 +8,7 @@ pygame.init()
 
 class game():
     def __init__(self, x: int, y: int, lvl: int) -> None:
+        """need to pass the level arguement from previous screen arguement"""
         self.game_x, self.game_y = x, y
         self.lvl = lvl
         self.game_bg = pygame.image.load("assets/pics/playfield.png")
@@ -24,8 +25,8 @@ class game():
         self.locked_positions = {}
         self.grid = self.create_grid(self.locked_positions)
         self.block_size = 24
-        self.next_piece = self.create_random_piece()
-        self.current_piece = self.create_random_piece()
+        self.next_piece = pieces.Piece()
+        self.current_piece = self.swap_next_with_current_piece()
 
 
     def draw_win(self) -> None:
@@ -61,8 +62,8 @@ class game():
 
 
     def draw_current_piece(self) -> None:
-        block = self.next_piece.colour
-        format = self.next_piece.random_shape_choice[self.next_piece.rotation % len(self.next_piece.random_shape_choice)]
+        block = self.current_piece.colour
+        format = self.current_piece.random_shape_choice[self.current_piece.rotation % len(self.current_piece.random_shape_choice)]
 
         for i, line in enumerate(format):
             row = list(line)
@@ -71,9 +72,11 @@ class game():
                     self.game_win.blit(block, (350 + j * 25, 90 + i * 25))
 
 
-    def swap_next_with_current_piece(self) -> None:
-        self.current_piece = self.next_piece
+    def swap_next_with_current_piece(self) -> object:
+        current_piece = self.next_piece
         self.next_piece = self.create_random_piece()
+
+        return current_piece
 
 
     def draw_scores(self) -> None:
@@ -191,7 +194,6 @@ class game():
         clock = pygame.time.Clock()
 
         self.load_hi_scores()
-
 
         while game_running:
             clock.tick(60)
