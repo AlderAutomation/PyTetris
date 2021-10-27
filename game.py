@@ -38,7 +38,6 @@ class game():
         self.update_piece_count()
         self.draw_pieces_for_counter()
         self.draw_next_piece()
-        self.draw_current_piece()
         pygame.display.update()
 
 
@@ -69,11 +68,13 @@ class game():
             row = list(line)
             for j, column in enumerate(row):
                 if column == "0":
-                    self.game_win.blit(block, (350 + j * 25, 90 + i * 25))
+                    self.game_win.blit(block, (self.current_piece.x + j * 25, self.current_piece.y + i * 25))
 
 
     def swap_next_with_current_piece(self) -> object:
         current_piece = self.next_piece
+        current_piece.x = 300
+        current_piece.y = 0
         self.next_piece = self.create_random_piece()
 
         return current_piece
@@ -101,6 +102,7 @@ class game():
     def change_level(self) -> None:
         """Every ten lines. sound effect. speed increase"""
         pass
+
 
     def update_piece_count(self) -> None:
         T_count = stat_builder(self.t_count, 155, 240, self, 3, (216,40,0))
@@ -185,7 +187,6 @@ class game():
                 print("Pause")
 
 
-
     def main(self) -> None:
         self.draw_win()
 
@@ -194,9 +195,17 @@ class game():
         clock = pygame.time.Clock()
 
         self.load_hi_scores()
+        fall_time = 0
+        fall_speed = 0.55
 
         while game_running:
-            clock.tick(60)
+            fall_time += clock.get_rawtime()
+            clock.tick()
+
+            if fall_time/1000 > fall_speed:
+                fall_time = 0
+                self.current_piece.y += 25
+                
 
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
@@ -209,6 +218,10 @@ class game():
 
                 self.screen_input(event)
 
+            if self.current_piece.y > 60:
+                self.draw_current_piece()
+            
+            pygame.display.update()
             self.draw_win()
 
 
