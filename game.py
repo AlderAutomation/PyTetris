@@ -73,9 +73,9 @@ class game():
 
     def swap_next_with_current_piece(self) -> object:
         current_piece = self.next_piece
+        self.next_piece = pieces.Piece()
         current_piece.x = 300
         current_piece.y = 0
-        self.next_piece = self.create_random_piece()
 
         return current_piece
 
@@ -196,7 +196,7 @@ class game():
 
         self.load_hi_scores()
         fall_time = 0
-        fall_speed = 0.55
+        fall_speed = 0.25
 
         while game_running:
             fall_time += clock.get_rawtime()
@@ -220,6 +220,9 @@ class game():
 
             if self.current_piece.y > 60:
                 self.draw_current_piece()
+
+            if self.current_piece.y >= 550:
+                self.current_piece = self.swap_next_with_current_piece()
             
             pygame.display.update()
             self.draw_win()
