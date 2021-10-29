@@ -27,6 +27,7 @@ class game():
         self.block_size = 24
         self.next_piece = pieces.Piece()
         self.current_piece = self.swap_next_with_current_piece()
+        self.fall_speed = .55
 
 
     def draw_win(self) -> None:
@@ -74,7 +75,7 @@ class game():
     def swap_next_with_current_piece(self) -> object:
         current_piece = self.next_piece
         self.next_piece = pieces.Piece()
-        current_piece.x = 300
+        current_piece.x = 335
         current_piece.y = 0
 
         return current_piece
@@ -180,12 +181,14 @@ class game():
             if event.key == pygame.K_d:
                 self.current_piece.x += 25
             if event.key == pygame.K_s:
-                print("Fast Fall")
+                self.fall_speed = .1
             if event.key == pygame.K_RETURN:
                 self.current_piece.rotation += 1
             if event.key == pygame.K_p:
                 print("Pause")
-
+        if event.type == pygame.KEYUP:
+            if event.key == pygame.K_s:
+                self.fall_speed = .55
 
     def main(self) -> None:
         self.draw_win()
@@ -196,13 +199,12 @@ class game():
 
         self.load_hi_scores()
         fall_time = 0
-        fall_speed = 0.25
 
         while game_running:
             fall_time += clock.get_rawtime()
             clock.tick()
 
-            if fall_time/1000 > fall_speed:
+            if fall_time/1000 > self.fall_speed:
                 fall_time = 0
                 self.current_piece.y += 25
                 

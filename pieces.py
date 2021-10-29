@@ -110,6 +110,7 @@ class Piece():
 
 
         s = pygame.image.load("assets/pics/s_j_block.png")
+        s = pygame.transform.scale(s, (24,24))
         z = pygame.image.load("assets/pics/z_l_block.png")
         i = pygame.image.load("assets/pics/t_i_block.png")
         o = pygame.image.load("assets/pics/o_block.png")
