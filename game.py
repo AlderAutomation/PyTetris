@@ -58,7 +58,7 @@ class game():
             row = list(line)
             for j, column in enumerate(row):
                 if column == "0":
-                    self.game_win.blit(block, (575 + j * 25, 320 + i * 25))
+                    self.game_win.blit(block, (575 + j * 21, 320 + i * 21))
 
 
     def draw_current_piece(self) -> None:
@@ -69,7 +69,7 @@ class game():
             row = list(line)
             for j, column in enumerate(row):
                 if column == "0":
-                    self.game_win.blit(block, (self.current_piece.x + j * 25, self.current_piece.y + i * 25))
+                    self.game_win.blit(block, (self.current_piece.x + j * 21, self.current_piece.y + i * 21))
 
 
     def swap_next_with_current_piece(self) -> object:
@@ -123,7 +123,7 @@ class game():
             row = list(line)
             for j, column in enumerate(row):
                 if column == "0":
-                    self.game_win.blit(piece.chosen_colour, (x + j * 25, y + i * 25))
+                    self.game_win.blit(piece.chosen_colour, (x + j * 21, y + i * 21))
 
 
     def draw_pieces_for_counter(self) -> None:
@@ -177,12 +177,12 @@ class game():
         Esc = Quit"""
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_a:
-                if self.current_piece.x <= 275:
+                if self.current_piece.x <= 300:
                     pass
                 else:
                     self.current_piece.x -= 25
             if event.key == pygame.K_d:
-                if self.current_piece.x >= 425:
+                if self.current_piece.x >= 450:
                     pass
                 else:
                     self.current_piece.x += 25
@@ -229,7 +229,7 @@ class game():
             if self.current_piece.y > 60:
                 self.draw_current_piece()
 
-            if self.current_piece.y >= 550:
+            if self.current_piece.y >= 575:
                 self.current_piece = self.swap_next_with_current_piece()
             
             pygame.display.update()
