@@ -171,15 +171,21 @@ class game():
     def screen_input(self, event: object) -> None:
         """A = move left
         D = Move right 
-        S = faster downward velocity 
+        S = faster downward velocity on keydown hold
         Enter = Rotate Piece
         P = Pause
         Esc = Quit"""
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_a:
-                self.current_piece.x -= 25
+                if self.current_piece.x <= 275:
+                    pass
+                else:
+                    self.current_piece.x -= 25
             if event.key == pygame.K_d:
-                self.current_piece.x += 25
+                if self.current_piece.x >= 425:
+                    pass
+                else:
+                    self.current_piece.x += 25
             if event.key == pygame.K_s:
                 self.fall_speed = .1
             if event.key == pygame.K_RETURN:
