@@ -72,6 +72,25 @@ class game():
                     self.game_win.blit(block, (self.current_piece.x + j * 21, self.current_piece.y + i * 21))
 
 
+    def count_piece(self):
+        piece = self.current_piece.shapes.index(self.current_piece.random_shape_choice)
+
+        if piece == 0:
+           self.s_count = self.s_count + 1
+        elif piece == 1:
+           self.z_count = self.z_count + 1
+        elif piece == 2:
+           self.i_count = self.i_count + 1
+        elif piece == 3:
+           self.o_count = self.o_count + 1
+        elif piece == 4:
+           self.j_count = self.j_count + 1
+        elif piece == 5:
+           self.l_count = self.l_count + 1
+        elif piece == 6:
+           self.t_count = self.t_count + 1
+          
+
     def swap_next_with_current_piece(self) -> object:
         current_piece = self.next_piece
         self.next_piece = pieces.Piece()
@@ -206,6 +225,8 @@ class game():
         self.load_hi_scores()
         fall_time = 0
 
+        self.count_piece()
+
         while game_running:
             fall_time += clock.get_rawtime()
             clock.tick()
@@ -231,6 +252,7 @@ class game():
 
             if self.current_piece.y >= 575:
                 self.current_piece = self.swap_next_with_current_piece()
+                self.count_piece()
             
             pygame.display.update()
             self.draw_win()
