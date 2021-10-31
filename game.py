@@ -8,7 +8,7 @@ pygame.init()
 
 class game():
     def __init__(self, x: int, y: int, lvl: int) -> None:
-        """need to pass the level arguement from previous screen arguement"""
+        """need to pass the level arguement from previous screen"""
         self.game_x, self.game_y = x, y
         self.lvl = lvl
         self.game_bg = pygame.image.load("assets/pics/playfield.png")
@@ -200,15 +200,21 @@ class game():
                     pass
                 else:
                     self.current_piece.x -= 25
+                    pygame.mixer.Sound.play(pygame.mixer.Sound("assets/audio/effects/piece_move.wav"))
             if event.key == pygame.K_d:
                 if self.current_piece.x >= 450:
                     pass
                 else:
                     self.current_piece.x += 25
+                    pygame.mixer.Sound.play(pygame.mixer.Sound("assets/audio/effects/piece_move.wav"))
             if event.key == pygame.K_s:
                 self.fall_speed = .1
-            if event.key == pygame.K_RETURN:
+            if event.key == pygame.K_k:
                 self.current_piece.rotation += 1
+                pygame.mixer.Sound.play(pygame.mixer.Sound("assets/audio/effects/piece_rotate.wav"))
+            if event.key == pygame.K_l:
+                self.current_piece.rotation -= 1
+                pygame.mixer.Sound.play(pygame.mixer.Sound("assets/audio/effects/piece_rotate.wav"))
             if event.key == pygame.K_p:
                 print("Pause")
         if event.type == pygame.KEYUP:
