@@ -46,6 +46,7 @@ class game():
     def pausing(self) -> None:
         if self.pause == False:
             self.pause = True
+            pygame.mixer.Sound.play(pygame.mixer.Sound("assets/audio/effects/pause.wav"))
         elif self.pause == True:
             self.pause = False
 
