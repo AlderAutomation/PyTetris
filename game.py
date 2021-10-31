@@ -28,6 +28,7 @@ class game():
         self.next_piece = pieces.Piece()
         self.current_piece = self.swap_next_with_current_piece()
         self.fall_speed = .55
+        self.pause = False
 
 
     def draw_win(self) -> None:
@@ -42,8 +43,11 @@ class game():
         pygame.display.update()
 
 
-    def pause(self) -> None:
-        pass
+    def pausing(self) -> None:
+        if self.pause == False:
+            self.pause = True
+        elif self.pause == True:
+            self.pause = False
 
 
     def create_random_piece(self) -> object:
@@ -58,7 +62,7 @@ class game():
             row = list(line)
             for j, column in enumerate(row):
                 if column == "0":
-                    self.game_win.blit(block, (575 + j * 21, 320 + i * 21))
+                    self.game_win.blit(block, (590 + j * 21, 330 + i * 21))
 
 
     def draw_current_piece(self) -> None:
@@ -152,7 +156,7 @@ class game():
         O = self.choose_piece_and_pos(3, 60, 395)
         S = self.choose_piece_and_pos(0, 50, 450)
         L = self.choose_piece_and_pos(5, 50, 505)
-        I = self.choose_piece_and_pos(2, 45, 535)
+        I = self.choose_piece_and_pos(2, 45, 560)
 
 
     def draw_lines(self) -> None:
@@ -194,6 +198,7 @@ class game():
         Enter = Rotate Piece
         P = Pause
         Esc = Quit"""
+
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_a:
                 if self.current_piece.x <= 300:
@@ -215,11 +220,12 @@ class game():
             if event.key == pygame.K_l:
                 self.current_piece.rotation -= 1
                 pygame.mixer.Sound.play(pygame.mixer.Sound("assets/audio/effects/piece_rotate.wav"))
-            if event.key == pygame.K_p:
-                print("Pause")
+            if event.key == pygame.K_RETURN:
+                self.pausing()
         if event.type == pygame.KEYUP:
             if event.key == pygame.K_s:
                 self.fall_speed = .55
+
 
     def main(self) -> None:
         self.draw_win()
@@ -236,6 +242,23 @@ class game():
         while game_running:
             fall_time += clock.get_rawtime()
             clock.tick()
+
+            while self.pause == True:
+                pause_bg = pygame.image.load("assets/pics/pause_screen.png")
+                pause_bg = pygame.transform.scale(pause_bg, (self.game_x, self.game_y))
+                pause_win = pygame.display.set_mode((self.game_x, self.game_y))
+                pause_win.blit(pause_bg, (0,0))
+                pygame.display.update()
+
+                for event in pygame.event.get():
+                    if event.type == pygame.QUIT:
+                        game_running = False
+
+                    if event.type == pygame.KEYDOWN :
+                        if event.key == pygame.K_RETURN:
+                            self.pause = False
+
+
 
             if fall_time/1000 > self.fall_speed:
                 fall_time = 0
