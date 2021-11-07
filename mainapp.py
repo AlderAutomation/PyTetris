@@ -2,6 +2,7 @@ import pygame
 import introscreen
 import levelselect 
 import mainmenu
+import game
 from pygame import color
 
 pygame.init()
@@ -19,11 +20,12 @@ LEVEL_FLAG = ""
 
 
 def screen_switch_sound():
+    pygame.mixer.init()
     switch_sound = pygame.mixer.Sound("assets/audio/effects/Switch_screen.wav")
     pygame.mixer.Sound.play(switch_sound)
 
 
-def intro_screen_loop():
+def intro_screen_loop() -> None:
     intro_screen = introscreen.intro_menu(win_x, win_y)
     intro_screen.draw_intro()
 
@@ -50,7 +52,7 @@ def intro_screen_loop():
             break
 
 
-def main_menu_loop():
+def main_menu_loop() -> None:
     global GAME_MODE, MUSIC_FLAG
     main_Menu = mainmenu.main_menu(win_x, win_y)
     main_Menu.draw_main()
@@ -73,10 +75,9 @@ def main_menu_loop():
                     main_menu_loop = False
 
                 main_Menu.update(event.key)
-
-        main_Menu.cursor_animation()
-
+    
         if main_Menu.is_start == True:
+            main_Menu.cursor_animation()
             continue
         elif main_Menu.is_start == False:
             GAME_MODE = main_Menu.game_cursor
@@ -85,7 +86,7 @@ def main_menu_loop():
             break
 
 
-def level_select_loop():
+def level_select_loop() -> None:
     global LEVEL_FLAG
 
     level_select_win = levelselect.level_selecter(win_x, win_y)
@@ -109,15 +110,75 @@ def level_select_loop():
 
                 level_select_win.update(event.key)
 
-        level_select_win.cursor_animation()
-        level_select_win.draw_levels()
 
         if level_select_win.is_start == True:
+            level_select_win.cursor_animation()
+            level_select_win.draw_levels()
             continue
         elif level_select_win.is_start == False:
             LEVEL_FLAG = level_select_win.level_flag
             screen_switch_sound()
             break
+
+
+def  game_screen_loop() -> None:
+        pygame.font.init()
+        game_win = game.game(768, 672, 0)
+
+        game_win.draw_win()
+
+        game_running = True
+
+        clock = pygame.time.Clock()
+
+        game_win.load_hi_scores()
+        fall_time = 0
+
+        game_win.count_piece()
+
+        while game_running:
+            fall_time += clock.get_rawtime()
+            clock.tick()
+
+            while game_win.pause == True:
+                pause_bg = pygame.image.load("assets/pics/pause_screen.png")
+                pause_bg = pygame.transform.scale(pause_bg, (game_win.game_x, game_win.game_y))
+                pause_win = pygame.display.set_mode((game_win.game_x, game_win.game_y))
+                pause_win.blit(pause_bg, (0,0))
+                pygame.display.update()
+
+                for event in pygame.event.get():
+                    if event.type == pygame.QUIT:
+                        game_running = False
+
+                    if event.type == pygame.KEYDOWN :
+                        if event.key == pygame.K_RETURN:
+                            game_win.pause = False
+
+            if fall_time/1000 > game_win.fall_speed:
+                fall_time = 0
+                game_win.current_piece.y += 25
+                
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    game_running = False
+
+                if event.type == pygame.KEYDOWN :
+                    if event.key == pygame.K_ESCAPE:
+                        print("ESC was pressed. Quitting....")
+                        game_running = False
+
+                game_win.screen_input(event)
+
+            if game_win.current_piece.y > 60:
+                game_win.draw_current_piece()
+
+            if game_win.current_piece.y >= 575:
+                game_win.current_piece = game_win.swap_next_with_current_piece()
+                game_win.count_piece()
+            
+            pygame.display.update()
+            game_win.draw_win()
 
 
 def main():
@@ -127,6 +188,8 @@ def main():
     main_menu_loop()
 
     level_select_loop()
+
+    game_screen_loop()
 
 
 

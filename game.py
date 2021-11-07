@@ -215,10 +215,10 @@ class game():
                     pygame.mixer.Sound.play(pygame.mixer.Sound("assets/audio/effects/piece_move.wav"))
             if event.key == pygame.K_s:
                 self.fall_speed = .1
-            if event.key == pygame.K_k:
+            if event.key == pygame.K_e:
                 self.current_piece.rotation += 1
                 pygame.mixer.Sound.play(pygame.mixer.Sound("assets/audio/effects/piece_rotate.wav"))
-            if event.key == pygame.K_l:
+            if event.key == pygame.K_q:
                 self.current_piece.rotation -= 1
                 pygame.mixer.Sound.play(pygame.mixer.Sound("assets/audio/effects/piece_rotate.wav"))
             if event.key == pygame.K_RETURN:
@@ -228,74 +228,8 @@ class game():
                 self.fall_speed = .55
 
 
-    def main(self) -> None:
-        self.draw_win()
-
-        game_running = True
-
-        clock = pygame.time.Clock()
-
-        self.load_hi_scores()
-        fall_time = 0
-
-        self.count_piece()
-
-        while game_running:
-            fall_time += clock.get_rawtime()
-            clock.tick()
-
-            while self.pause == True:
-                pause_bg = pygame.image.load("assets/pics/pause_screen.png")
-                pause_bg = pygame.transform.scale(pause_bg, (self.game_x, self.game_y))
-                pause_win = pygame.display.set_mode((self.game_x, self.game_y))
-                pause_win.blit(pause_bg, (0,0))
-                pygame.display.update()
-
-                for event in pygame.event.get():
-                    if event.type == pygame.QUIT:
-                        game_running = False
-
-                    if event.type == pygame.KEYDOWN :
-                        if event.key == pygame.K_RETURN:
-                            self.pause = False
-
-
-
-            if fall_time/1000 > self.fall_speed:
-                fall_time = 0
-                self.current_piece.y += 25
-                
-
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    game_running = False
-
-                if event.type == pygame.KEYDOWN :
-                    if event.key == pygame.K_ESCAPE:
-                        print("ESC was pressed. Quitting....")
-                        game_running = False
-
-                self.screen_input(event)
-
-            if self.current_piece.y > 60:
-                self.draw_current_piece()
-
-            if self.current_piece.y >= 575:
-                self.current_piece = self.swap_next_with_current_piece()
-                self.count_piece()
-            
-            pygame.display.update()
-            self.draw_win()
-
-
 class stat_builder:
     def __init__(self, stat: int, x: int, y: int, obj: object, zeros: int = 6, colour: str = (255,255,255)) -> None:
         leading_0s = str(stat).zfill(zeros)
         obj.lines_surface = obj.game_text.render(leading_0s, False, colour, obj.black)
         obj.game_win.blit(obj.lines_surface, (x, y))
-
-
-if __name__== "__main__":
-    Tetris = game(768, 672, 0).main()
-    Tetris
-    
