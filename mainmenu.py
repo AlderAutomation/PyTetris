@@ -26,7 +26,7 @@ class main_menu:
     def draw_game_cursor(self, x: int, y: int):
         self.g_cursor_x, self.g_cursor_y = x, y
         self.menu_win.blit(self.cursor[int(self.cursor_index)], (self.g_cursor_x, self.g_cursor_y))
-        self.menu_win.blit(pygame.transform.flip(self.cursor[int(self.cursor_index)], True, False), (self.g_cursor_x+180,self.g_cursor_y))
+        self.menu_win.blit(pygame.transform.flip(self.cursor[int(self.cursor_index)], True, False), (self.g_cursor_x+170,self.g_cursor_y))
         pygame.display.update()
 
 
@@ -56,52 +56,52 @@ class main_menu:
             self.cursor_sound()
             if self.game_cursor == "A":
                 self.redraw_win()
-                self.draw_game_cursor(495, 148)
+                self.draw_game_cursor(475, 165)
                 self.draw_music_cursor(self.m_cursor_x, self.m_cursor_y)
                 self.game_cursor = "B"
         if eventkey == pygame.K_a:
             self.cursor_sound()
             if self.game_cursor == "B":
                 self.redraw_win()
-                self.draw_game_cursor(195, 148)
+                self.draw_game_cursor(190, 165)
                 self.draw_music_cursor(self.m_cursor_x, self.m_cursor_y)
                 self.game_cursor = "A"
         #  music selector controls 
         if eventkey == pygame.K_s:
             if self.music_cursor == "1":
                 self.redraw_win()
-                self.draw_music_cursor(320, 405)
+                self.draw_music_cursor(305, 453)
                 self.draw_game_cursor(self.g_cursor_x, self.g_cursor_y)
                 self.music_cursor = "2"
                 self.music()
             elif self.music_cursor == "2":
                 self.redraw_win()
-                self.draw_music_cursor(320, 447)
+                self.draw_music_cursor(305, 500)
                 self.draw_game_cursor(self.g_cursor_x, self.g_cursor_y)
                 self.music_cursor = "3"
                 self.music()
             elif self.music_cursor == "3":
                 self.redraw_win()
-                self.draw_music_cursor(320, 490)
+                self.draw_music_cursor(305, 550)
                 self.draw_game_cursor(self.g_cursor_x, self.g_cursor_y)
                 self.music_cursor = "off"
                 self.music()
         if eventkey == pygame.K_w:
             if self.music_cursor == "off":
                 self.redraw_win()
-                self.draw_music_cursor(320, 447)
+                self.draw_music_cursor(305, 500)
                 self.draw_game_cursor(self.g_cursor_x, self.g_cursor_y)
                 self.music_cursor = "3"
                 self.music()
             elif self.music_cursor == "3":
                 self.redraw_win()
-                self.draw_music_cursor(320, 405)
+                self.draw_music_cursor(305, 453)
                 self.draw_game_cursor(self.g_cursor_x, self.g_cursor_y)
                 self.music_cursor = "2"
                 self.music()
             elif self.music_cursor == "2":
                 self.redraw_win()
-                self.draw_music_cursor(320, 360)
+                self.draw_music_cursor(305, 405)
                 self.draw_game_cursor(self.g_cursor_x, self.g_cursor_y)
                 self.music_cursor = "1"
                 self.music()

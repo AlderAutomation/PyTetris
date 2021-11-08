@@ -54,8 +54,8 @@ def main_menu_loop() -> None:
     global GAME_MODE, MUSIC_FLAG
     main_Menu = mainmenu.main_menu(win_x, win_y)
     main_Menu.draw_main()
-    main_Menu.draw_game_cursor(195, 148)
-    main_Menu.draw_music_cursor(320, 360)
+    main_Menu.draw_game_cursor(190, 165)
+    main_Menu.draw_music_cursor(305, 405)
     main_Menu.music()
 
     main_menu_loop = True
@@ -89,7 +89,7 @@ def level_select_loop() -> None:
 
     level_select_win = levelselect.level_selecter(win_x, win_y)
     level_select_win.draw_main()
-    level_select_win.draw_level_cursor(168, 205)
+    level_select_win.draw_level_cursor(160, 230)
     level_select_win.draw_levels()
 
     level_select_loop = True
