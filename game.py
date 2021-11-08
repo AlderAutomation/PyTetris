@@ -4,8 +4,6 @@ import random
 import csv
 import pieces
 
-pygame.init()
-
 class game():
     def __init__(self, x: int, y: int, lvl: int) -> None:
         """need to pass the level arguement from previous screen"""

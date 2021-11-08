@@ -50,7 +50,6 @@ class level_selecter():
     def screen_input(self, eventkey):
         if eventkey == pygame.K_RETURN or eventkey == pygame.K_KP_ENTER and self.is_start == True:
             self.is_start = False
-            pygame.quit()
         if eventkey == pygame.K_d:
             self.cursor_sound()
             if self.level_flag == 0:

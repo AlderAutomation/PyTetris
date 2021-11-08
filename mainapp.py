@@ -7,10 +7,8 @@ from pygame import color
 
 pygame.init()
 
-
-win_x, win_y = 800, 600
+win_x, win_y = 768, 672
 pygame.display.set_caption("PyTetris")
-run = True
 clock = pygame.time.Clock()
 # set in main loop only
 GAME_MODE = ""
@@ -122,63 +120,59 @@ def level_select_loop() -> None:
 
 
 def  game_screen_loop() -> None:
-        pygame.font.init()
-        game_win = game.game(768, 672, 0)
+    global LEVEL_FLAG
 
-        game_win.draw_win()
+    game_win = game.game(win_x, win_y, LEVEL_FLAG)
+    game_win.draw_win()
+    game_win.load_hi_scores()
+    game_win.count_piece()
 
-        game_running = True
+    game_running = True
+    fall_time = 0
 
-        clock = pygame.time.Clock()
+    while game_running:
+        fall_time += clock.get_rawtime()
+        clock.tick()
 
-        game_win.load_hi_scores()
-        fall_time = 0
+        while game_win.pause == True:
+            pause_bg = pygame.image.load("assets/pics/pause_screen.png")
+            pause_bg = pygame.transform.scale(pause_bg, (game_win.game_x, game_win.game_y))
+            pause_win = pygame.display.set_mode((game_win.game_x, game_win.game_y))
+            pause_win.blit(pause_bg, (0,0))
+            pygame.display.update()
 
-        game_win.count_piece()
-
-        while game_running:
-            fall_time += clock.get_rawtime()
-            clock.tick()
-
-            while game_win.pause == True:
-                pause_bg = pygame.image.load("assets/pics/pause_screen.png")
-                pause_bg = pygame.transform.scale(pause_bg, (game_win.game_x, game_win.game_y))
-                pause_win = pygame.display.set_mode((game_win.game_x, game_win.game_y))
-                pause_win.blit(pause_bg, (0,0))
-                pygame.display.update()
-
-                for event in pygame.event.get():
-                    if event.type == pygame.QUIT:
-                        game_running = False
-
-                    if event.type == pygame.KEYDOWN :
-                        if event.key == pygame.K_RETURN:
-                            game_win.pause = False
-
-            if fall_time/1000 > game_win.fall_speed:
-                fall_time = 0
-                game_win.current_piece.y += 25
-                
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     game_running = False
 
                 if event.type == pygame.KEYDOWN :
-                    if event.key == pygame.K_ESCAPE:
-                        print("ESC was pressed. Quitting....")
-                        game_running = False
+                    if event.key == pygame.K_RETURN:
+                        game_win.pause = False
 
-                game_win.screen_input(event)
-
-            if game_win.current_piece.y > 60:
-                game_win.draw_current_piece()
-
-            if game_win.current_piece.y >= 575:
-                game_win.current_piece = game_win.swap_next_with_current_piece()
-                game_win.count_piece()
+        if fall_time/1000 > game_win.fall_speed:
+            fall_time = 0
+            game_win.current_piece.y += 25
             
-            pygame.display.update()
-            game_win.draw_win()
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                game_running = False
+
+            if event.type == pygame.KEYDOWN :
+                if event.key == pygame.K_ESCAPE:
+                    print("ESC was pressed. Quitting....")
+                    game_running = False
+
+            game_win.screen_input(event)
+
+        if game_win.current_piece.y > 60:
+            game_win.draw_current_piece()
+
+        if game_win.current_piece.y >= 575:
+            game_win.current_piece = game_win.swap_next_with_current_piece()
+            game_win.count_piece()
+        
+        pygame.display.update()
+        game_win.draw_win()
 
 
 def main():
