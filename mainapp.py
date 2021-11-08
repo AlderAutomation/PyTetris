@@ -167,7 +167,7 @@ def  game_screen_loop() -> None:
         if game_win.current_piece.y > 60:
             game_win.draw_current_piece()
 
-        if game_win.current_piece.y >= 575:
+        if game_win.current_piece.y >= 551:
             game_win.current_piece = game_win.swap_next_with_current_piece()
             game_win.count_piece()
         

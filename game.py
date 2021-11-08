@@ -61,7 +61,7 @@ class game():
             row = list(line)
             for j, column in enumerate(row):
                 if column == "0":
-                    self.game_win.blit(block, (590 + j * 21, 330 + i * 21))
+                    self.game_win.blit(block, (590 + j * self.block_size, 330 + i * self.block_size))
 
 
     def draw_current_piece(self) -> None:
@@ -72,7 +72,7 @@ class game():
             row = list(line)
             for j, column in enumerate(row):
                 if column == "0":
-                    self.game_win.blit(block, (self.current_piece.x + j * 21, self.current_piece.y + i * 21))
+                    self.game_win.blit(block, (self.current_piece.x + j * self.block_size, self.current_piece.y + i * self.block_size))
 
 
     def count_piece(self):
@@ -145,7 +145,7 @@ class game():
             row = list(line)
             for j, column in enumerate(row):
                 if column == "0":
-                    self.game_win.blit(piece.chosen_colour, (x + j * 21, y + i * 21))
+                    self.game_win.blit(piece.chosen_colour, (x + j * self.block_size, y + i * self.block_size))
 
 
     def draw_pieces_for_counter(self) -> None:
@@ -173,7 +173,7 @@ class game():
 
 
     def create_grid(self, locked_pos = {}) -> list:
-        grid = [[(self.white)for _ in range(10)] for _ in range(20)]
+        grid = [[(self.black)for _ in range(10)] for _ in range(20)]
 
         for i in range(len(grid)):
             for j in range(len(grid[i])):
@@ -187,15 +187,16 @@ class game():
     def draw_grid(self, grid: list) -> None:
         for i in range(len(grid)):
             for j in range(len(grid[i])):
-                pygame.draw.rect(self.game_win, grid[i][j], (287+j*self.block_size, 121+i*self.block_size, self.block_size, self.block_size), 1)
+                pygame.draw.rect(self.game_win, grid[i][j], (287+j*self.block_size, 121+i*self.block_size, self.block_size, self.block_size))
 
         
     def screen_input(self, event: object) -> None:
         """A = move left
         D = Move right 
         S = faster downward velocity on keydown hold
-        Enter = Rotate Piece
-        P = Pause
+        E = Rotate Piece Clockwise
+        Q = Rotate Piece Counter Clockwise
+        Enter = Pause
         Esc = Quit"""
 
         if event.type == pygame.KEYDOWN:
@@ -211,8 +212,11 @@ class game():
                 else:
                     self.current_piece.x += 25
                     pygame.mixer.Sound.play(pygame.mixer.Sound("assets/audio/effects/piece_move.wav"))
+        
+        if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_s:
-                self.fall_speed = .1
+                # smaller number is faster drops
+                self.fall_speed = .07
             if event.key == pygame.K_e:
                 self.current_piece.rotation += 1
                 pygame.mixer.Sound.play(pygame.mixer.Sound("assets/audio/effects/piece_rotate.wav"))
