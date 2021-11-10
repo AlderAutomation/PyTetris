@@ -25,7 +25,7 @@ class game():
         self.block_size = 24
         self.next_piece = pieces.Piece()
         self.current_piece = self.swap_next_with_current_piece()
-        self.fall_speed = .55
+        self.fall_speed = 0
         self.pause = False
 
 
@@ -204,19 +204,19 @@ class game():
                 if self.current_piece.x <= 300:
                     pass
                 else:
-                    self.current_piece.x -= 25
+                    self.current_piece.x -= 24
                     pygame.mixer.Sound.play(pygame.mixer.Sound("assets/audio/effects/piece_move.wav"))
             if event.key == pygame.K_d:
-                if self.current_piece.x >= 450:
+                if self.current_piece.x >= 500:
                     pass
                 else:
-                    self.current_piece.x += 25
+                    self.current_piece.x += 24
                     pygame.mixer.Sound.play(pygame.mixer.Sound("assets/audio/effects/piece_move.wav"))
         
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_s:
-                # smaller number is faster drops
-                self.fall_speed = .07
+                self.hold_current_speed = self.fall_speed
+                self.fall_speed = self.fall_speed / 2
             if event.key == pygame.K_e:
                 self.current_piece.rotation += 1
                 pygame.mixer.Sound.play(pygame.mixer.Sound("assets/audio/effects/piece_rotate.wav"))
@@ -227,7 +227,7 @@ class game():
                 self.pausing()
         if event.type == pygame.KEYUP:
             if event.key == pygame.K_s:
-                self.fall_speed = .55
+                self.fall_speed = self.hold_current_speed
 
 
 class stat_builder:

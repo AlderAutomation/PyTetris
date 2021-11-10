@@ -23,6 +23,31 @@ def screen_switch_sound():
     pygame.mixer.Sound.play(switch_sound)
 
 
+def speed_selector(level: int) -> float:
+    if LEVEL_FLAG == 0:
+        speed = .80
+    elif LEVEL_FLAG == 1:
+        speed = .70
+    elif LEVEL_FLAG == 2:
+        speed = .60
+    elif LEVEL_FLAG == 3:
+        speed = .50
+    elif LEVEL_FLAG == 4:
+        speed = .40
+    elif LEVEL_FLAG == 5:
+        speed = .30
+    elif LEVEL_FLAG == 6:
+        speed = .20
+    elif LEVEL_FLAG == 7:
+        speed = .10
+    elif LEVEL_FLAG == 8:
+        speed = .09
+    elif LEVEL_FLAG == 9:
+        speed = .08
+
+    return speed
+
+
 def intro_screen_loop() -> None:
     intro_screen = introscreen.intro_menu(win_x, win_y)
     intro_screen.draw_intro()
@@ -34,12 +59,12 @@ def intro_screen_loop() -> None:
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                intro_loop_run = False
+                pygame.quit()
 
             if event.type == pygame.KEYDOWN :
                 if event.key == pygame.K_ESCAPE:
                     print("ESC was pressed. Quitting....")
-                    intro_loop_run = False
+                    pygame.quit()
 
                 intro_screen.update(event.key)
 
@@ -65,12 +90,12 @@ def main_menu_loop() -> None:
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                main_menu_loop = False
+                pygame.quit()
 
             if event.type == pygame.KEYDOWN :
                 if event.key == pygame.K_ESCAPE:
                     print("ESC was pressed. Quitting....")
-                    main_menu_loop = False
+                    pygame.quit()
 
                 main_Menu.update(event.key)
     
@@ -99,12 +124,12 @@ def level_select_loop() -> None:
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                level_select_loop = False
+                pygame.quit()
 
             if event.type == pygame.KEYDOWN :
                 if event.key == pygame.K_ESCAPE:
                     print("ESC was pressed. Quitting....")
-                    level_select_loop = False
+                    pygame.quit()
 
                 level_select_win.update(event.key)
 
@@ -126,6 +151,7 @@ def  game_screen_loop() -> None:
     game_win.draw_win()
     game_win.load_hi_scores()
     game_win.count_piece()
+    game_win.fall_speed = speed_selector(LEVEL_FLAG)
 
     game_running = True
     fall_time = 0
@@ -155,12 +181,12 @@ def  game_screen_loop() -> None:
             
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                game_running = False
+                pygame.quit()
 
             if event.type == pygame.KEYDOWN :
                 if event.key == pygame.K_ESCAPE:
                     print("ESC was pressed. Quitting....")
-                    game_running = False
+                    pygame.quit()
 
             game_win.screen_input(event)
 
