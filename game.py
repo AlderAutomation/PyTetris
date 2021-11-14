@@ -122,7 +122,7 @@ class game():
         stat_builder(self.lvl, 625, 480, self, 2)
 
 
-    def change_level(self) -> None:
+    def level_up(self) -> None:
         """Every ten lines. sound effect. speed increase"""
         pass
 
@@ -173,7 +173,7 @@ class game():
 
 
     def create_grid(self, locked_pos = {}) -> list:
-        grid = [[(self.black)for _ in range(10)] for _ in range(20)]
+        grid = [[(self.white)for _ in range(10)] for _ in range(20)]
 
         for i in range(len(grid)):
             for j in range(len(grid[i])):
@@ -187,7 +187,7 @@ class game():
     def draw_grid(self, grid: list) -> None:
         for i in range(len(grid)):
             for j in range(len(grid[i])):
-                pygame.draw.rect(self.game_win, grid[i][j], (287+j*self.block_size, 121+i*self.block_size, self.block_size, self.block_size))
+                pygame.draw.rect(self.game_win, grid[i][j], (287+j*self.block_size, 121+i*self.block_size, self.block_size, self.block_size), 1)
 
         
     def screen_input(self, event: object) -> None:

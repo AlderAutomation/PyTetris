@@ -4,6 +4,7 @@ import levelselect
 import mainmenu
 import game
 from pygame import color
+import random 
 
 pygame.init()
 
@@ -146,6 +147,7 @@ def level_select_loop() -> None:
 
 def  game_screen_loop() -> None:
     global LEVEL_FLAG
+
 
     game_win = game.game(win_x, win_y, LEVEL_FLAG)
     game_win.draw_win()
